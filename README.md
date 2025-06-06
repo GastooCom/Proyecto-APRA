@@ -16,17 +16,17 @@
 El objetivo de la App es brindar a los docentes una herramienta moderna para registrar la asistencia de alumnos en tiempo real mediante la cámara del dispositivo, utilizando elementos de realidad aumentada como etiquetas flotantes (c/Nombre, Apellido, Ingreso...), confirmaciones visuales o notificaciones.
 
 ## Herramientas utilizadas:
-**GitHub:** Como respositorio..
-**Canva:** Como modelado y prototipado.
+- **GitHub:** Como respositorio..
+- **Canva:** Como modelado y prototipado.
 
 ## Estructura:
-**Pantalla Login:** Para que el docente pueda iniciar sesión.
-**Pantalla Registrarse:** Para que el docente cree una cuenta.
-**Pantalla Inicio:** Para que la página sea intuitiva y comprensible para el docente.
-**Pantalla Datos de Asistencia:** Para que se tengan los datos e información de los Alumnos.
-**Pantalla Cámara:** Pantalla de la cámara.
-**Pantalla Permiso de Notificaciones:** Pantalla para dar permisos de notificación.
-**Pantalla Asistencia por Cámara:** Pantalla para la asistencia por cámara.
+- **Pantalla Login:** Para que el docente pueda iniciar sesión.
+- **Pantalla Registrarse:** Para que el docente cree una cuenta.
+- **Pantalla Inicio:** Para que la página sea intuitiva y comprensible para el docente.
+- **Pantalla Datos de Asistencia:** Para que se tengan los datos e información de los Alumnos.
+- **Pantalla permiso de Cámara:** Pantalla del permiso de la cámara.
+- **Pantalla Permiso de Notificaciones:** Pantalla para dar permisos de notificación.
+- **Pantalla Asistencia por Cámara:** Pantalla para la asistencia por cámara.
 
 ## Diseño y Estilo:
 **Pantallas Principales:**
@@ -34,7 +34,7 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 - Registrarse
 - Inicio
 - Datos de Asistencia
-- Permiso Camara
+- Permiso para Camara
 - Permiso de Notificaciones
 - Asitencia por Cámara
 **Diseño:** 
