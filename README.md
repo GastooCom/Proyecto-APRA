@@ -36,8 +36,8 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 - Datos de Asistencia
 - Permiso para Camara
 - Permiso de Notificaciones
-- Asitencia por Cámara
-**Diseño:** 
+- Asistencia por Cámara
+- **Diseño:** 
 - "Colores azules, oscuros y claros:" Se utiliza un degrade Azul y el Blanco. 
 - "Iconos legibles:" Se encuentra íconos intuitivos y claros.
 - "Tipografía:" Se utiliza la tipografía 'Code-Pro', siendo más legible.
