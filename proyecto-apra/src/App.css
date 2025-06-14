@@ -49,5 +49,9 @@ h2{
 }
 
 .App-Barra2{
-  background-color: black;
+  display: flex;
+  align-items: center;
+  background:linear-gradient(to right, black, purple);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
