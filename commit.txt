@@ -1,20 +1,8 @@
 VAMOS EQUIPO, AVANZEMOS Y ROMPAMOS NUESTROS LIMITES
 PLUS ULTRA!!!!!!
-<<<<<<< HEAD
-putp puto puto puto 
-=======
-<<<<<<< HEAD
 Hola soy spiderman
 Hola soy gaston
-=======
-<<<<<<< HEAD
-
-
 
 bueenas buenas
-=======
 Hola soy gaston
->>>>>>> bd012f285a4d6b92d6f554b9b64429f0c92a8f72
->>>>>>> 0bd7efeb570e961059c2392f42fd1aaa86806b01
->>>>>>> a4ab90cecf3383b194aec150d6f03d74011795aa
 hola soy pacha
