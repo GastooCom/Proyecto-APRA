@@ -1,10 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import FormularioRegistrarse from './components/FormularioRegistrarse';
+import PantallaDestino from './components/PantallaDestino';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-/*
 function App() {
   return (
-    <div className="App">
+    <Router>
+            <Routes>
+                <Route path="/" element={<FormularioRegistrarse titulo="Formulario Nombre y Apellido" />} />
+                <Route path="/resultado" element={<PantallaDestino />} />
+            </Routes>
+        </Router>
+  );
+}
+/*
+
+function App(){
+  return (
+    <><div className="App-Barra1">
+    </div><div className="App-Barra2">
+        <h2>Inicio</h2>
+        <h2>Asistencia</h2>
+        <h2>Permisos</h2>
+      </div></>
+  );
+}
+
+<div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -20,19 +42,6 @@ function App() {
         </a>
       </header>
     </div>
-  );
-}
 */
-
-function App(){
-  return (
-    <><div className="App-Barra1">
-    </div><div className="App-Barra2">
-        <h2>Inicio</h2>
-        <h2>Asistencia</h2>
-        <h2>Permisos</h2>
-      </div></>
-  );
-}
 
 export default App;

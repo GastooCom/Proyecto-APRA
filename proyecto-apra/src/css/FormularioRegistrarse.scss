@@ -1,0 +1,80 @@
+/* Fondo general con gradiente */
+.form-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    padding: 20px;
+}
+
+/* Panel glassmorphism */
+.glass-form {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.glass-form h2 {
+    text-align: center;
+    margin-bottom: 24px;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+/* Grupo de inputs */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #f1f1f1;
+}
+
+.form-group input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.form-group input::placeholder {
+    color: #e0e0e0;
+}
+
+.form-group input:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Botón */
+.glass-form button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.3);
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.glass-form button:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
