@@ -1,6 +1,10 @@
 VAMOS EQUIPO, AVANZEMOS Y ROMPAMOS NUESTROS LIMITES
 PLUS ULTRA!!!!!!
+<<<<<<< HEAD
 
 
 
 bueenas buenas
+=======
+Hola soy gaston
+>>>>>>> bd012f285a4d6b92d6f554b9b64429f0c92a8f72
