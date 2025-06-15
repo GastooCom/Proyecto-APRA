@@ -3,8 +3,8 @@ import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import { MdVisibility } from "react-icons/md";
 import { FaHeadset } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
-import { SiAugmentedreality } from "react-icons/si";
-import "./Home.css";
+//import { SiAugmentedreality } from "react-icons/si";
+import "../css/PáginaInicio.css";
 
 export default function Home() {
   return (
@@ -55,7 +55,6 @@ export default function Home() {
       {/* Features */}
       <section className="features-section">
         <div className="feature-item">
-          <SiAugmentedreality className="feature-icon" />
           <span>Realidad Aumentada</span>
         </div>
         <div className="feature-item">
