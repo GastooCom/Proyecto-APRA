@@ -17,7 +17,7 @@ function App() {
                 <Route path="/resultado" element={<PantallaDestino />} />
             </Routes>
         </Router>
-    </div>
+  </div>
   );
 }
 /*

@@ -27,17 +27,11 @@ const getStatusClass = (status) => {
                 return '';
         }
     }
-/*
-<td>
-                                <span className={`status ${getStatusClass(record.asistencia)}`}>
-                                    {record.asistencia}
-                                </span>
-                            </td>
-*/
+
 export default function Asistencia(){
     return (
         <div className="container">
-            <h1>Asistencia de Alumnos</h1>
+            <h1 class="titulo">Asistencia de Alumnos</h1><br></br>
             <table className="attendance-table">
                 <thead>
                     <tr>
