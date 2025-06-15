@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioRegistrarse.css";
 
-const FormularioRegistrarse = ({ titulo = "Formulario Nombre y Apellido" }) => {
+const FormularioRegistrarse = ({ titulo = "Registrarse" }) => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [dni, setDNI] = useState('');
