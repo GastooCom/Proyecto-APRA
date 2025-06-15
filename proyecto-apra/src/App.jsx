@@ -3,23 +3,24 @@ import FormularioRegistrarse from './components/FormularioRegistrarse';
 import PantallaDestino from './components/PantallaDestino';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PáginaInicio from './components/PáginaInicio' ;
+import notificaciones from './components/notificaciones';
 
 function App() {
   return (
     <div>
+    <notificaciones/>
+    <PáginaInicio />
 
-
-    <notificaciones />
     <Router>
             <Routes>
                 <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />
                 <Route path="/resultado" element={<PantallaDestino />} />
             </Routes>
         </Router>
-    </div>
+  </div>
   );
 }
-/*
+/* 
 
 function App(){
   return (
