@@ -3,7 +3,11 @@ import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import { MdVisibility } from "react-icons/md";
 import { FaHeadset } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
+<<<<<<< HEAD
 import { MdViewInAr } from "react-icons/md";
+=======
+//import { SiAugmentedreality } from "react-icons/si";
+>>>>>>> cad6858f61ebf3f7bac0d4f6d2e6479846266af6
 import "../css/PáginaInicio.css";
 
 export default function Inicio() {
@@ -55,7 +59,10 @@ export default function Inicio() {
       {/* Features */}
       <section className="features-section">
         <div className="feature-item">
+<<<<<<< HEAD
           <MdViewInAr className="feature-icon" />
+=======
+>>>>>>> cad6858f61ebf3f7bac0d4f6d2e6479846266af6
           <span>Realidad Aumentada</span>
         </div>
         <div className="feature-item">
