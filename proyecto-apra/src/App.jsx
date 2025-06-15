@@ -6,19 +6,18 @@ import PáginaInicio from './components/PáginaInicio' ;
 
 function App() {
   return (
-    <div>
-<<<<<<< HEAD
-=======
-    <h1></h1>
->>>>>>> cad6858f61ebf3f7bac0d4f6d2e6479846266af6
-    <PáginaInicio />
+
+
+  <div>
+    <PaginaInicio/>
     <Router>
             <Routes>
                 <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />
                 <Route path="/resultado" element={<PantallaDestino />} />
+                <Route path="/inicio" element={<PáginaInicio />} />
             </Routes>
         </Router>
-    </div>
+  </div>
   );
 }
 /*

@@ -1,70 +1,65 @@
-import React, { useState } from "react";
+import React from "react";
+import App from './App';
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioRegistrarse.css";
 
-const FormularioRegistrarse = ({ titulo = "Registrarse" }) => {
-    const [nombre, setNombre] = useState('');
-    const [apellido, setApellido] = useState('');
-    const [dni, setDNI] = useState('');
-    const navigate = useNavigate();
+// Componente de formulario
+const FormularioRegistrarse = () => {
+  const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        // Navegar a PantallaDestino y pasar los datos
-        navigate("/resultado", {
-            state: { nombre, apellido }
-        });
-    };
-
-    return (
-        <div className="form-container">
-            <form onSubmit={handleSubmit} className="glass-form">
-                <h2>{titulo}</h2>
-
-                <div className="form-group">
-                    <label>Nombre</label>
-                    <input
-                        type="text"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                        placeholder="Escribe tu nombre"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Apellido</label>
-                    <input
-                        type="text"
-                        value={apellido}
-                        onChange={(e) => setApellido(e.target.value)}
-                        placeholder="Escribe tu apellido"
-                    />
-                </div>
-
-                 <div className="form-group">
-                    <label>DNI</label>
-                    <input
-                        type="text"
-                        value={dni}
-                        onChange={(e) => setDNI(e.target.value)}
-                        placeholder="Escribe tu DNI"
-                    />
-                </div>
-
-                <button type="submit">Enviar</button>
-
-                <div className="cuenta">
-                    <label>¿Ya tienes una cuenta?</label>
-                </div>
-
-                <div className="inicio">
-                    <label>Inicio con Google</label>
-                </div>
-
-            </form>
+  return (
+    <div className="body">
+      <div className="container">
+        <div className="form_area">
+          <p className="title">Regístrate</p>
+          <form>
+            <div className="form_group">
+              <label className="sub_title" htmlFor="name">
+                <i className="fas fa-user"></i> Nombre completo
+              </label>
+              <input
+                className="form_style"
+                type="text"
+                placeholder="Ingrese su nombre completo"
+                id="name"
+              />
+            </div>
+            <div className="form_group">
+              <label className="sub_title" htmlFor="telefono">
+                <i className="fas fa-phone"></i> Nº de Teléfono
+              </label>
+              <input
+                className="form_style"
+                type="tel"
+                placeholder="Ingrese su número de teléfono"
+                id="telefono"
+              />
+            </div>
+            <div className="form_group">
+              <label className="sub_title" htmlFor="dni">
+                <i className="fas fa-pen"></i> DNI
+              </label>
+              <input
+                className="form_style"
+                type="text"
+                placeholder="Ingrese su DNI"
+                id="dni"
+              />
+            </div>
+            <button type="submit" className="btn">
+              Registrarse
+            </button>
+            <p className="texto-pie">
+              ¿Ya tienes una Cuenta?{" "}
+              <a className="link" href="#">
+                Inicia con Google
+              </a>
+            </p>
+          </form>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default FormularioRegistrarse;
