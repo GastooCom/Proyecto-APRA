@@ -10,6 +10,17 @@
 - *Lema Joaquin*
 - *Mateo Acuña*
 
+## Roles definidos:
+**Frontend:**
+-Lema Joaquin
+-Carrasco Facundo
+**Backend:**
+-Acuña Mateo
+**Diseño:**
+-Font Aquiles
+**Documentacion:**
+-Frigo Gaston
+
 ## 📤 Nombre y objetivo de la App:
 **Nombre de la App:** Asistencia RA
 **Objetivo:**
