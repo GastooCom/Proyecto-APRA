@@ -12,14 +12,14 @@
 
 ## Roles definidos:
 **Frontend:**
--Lema Joaquin
--Carrasco Facundo
+-*Lema Joaquin*
+-*Carrasco Facundo*
 **Backend:**
--Acuña Mateo
+-*Acuña Mateo*
 **Diseño:**
--Font Aquiles
+-*Font Aquiles*
 **Documentacion:**
--Frigo Gaston
+-*Frigo Gaston*
 
 ## 📤 Nombre y objetivo de la App:
 **Nombre de la App:** Asistencia RA
