@@ -53,6 +53,15 @@ const FormularioRegistrarse = ({ titulo = "Formulario Nombre y Apellido" }) => {
                 </div>
 
                 <button type="submit">Enviar</button>
+
+                <div className="cuenta">
+                    <label>¿Ya tienes una cuenta?</label>
+                </div>
+
+                <div className="inicio">
+                    <label>Inicio con Google</label>
+                </div>
+
             </form>
         </div>
     );

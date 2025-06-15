@@ -20,6 +20,7 @@
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
+    height: 450px;
 }
 
 .glass-form h2 {
@@ -76,14 +77,15 @@
 
 /* Botón */
 .glass-form button {
-    
+    justify-content: center;
     text-align: center;
+    margin-left: 100px;
     width: 50%;
     padding: 12px;
     border-radius: 10px;
     border: none;
-    background: rgba(255, 255, 255, 0.3);
-    color: #000;
+    background: linear-gradient(#206fe6, #c50e8e);
+    color: white;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
@@ -92,4 +94,15 @@
 
 .glass-form button:hover {
     opacity: 0.9;
+}
+
+/*Final*/
+.cuenta{
+    margin-top: 50px;
+}
+
+.inicio{
+    margin-top: -20px;
+    margin-left: 260px;
+    color: aqua;
 }

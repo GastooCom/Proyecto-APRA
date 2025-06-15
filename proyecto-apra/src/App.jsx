@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
             <Routes>
-                <Route path="/" element={<FormularioRegistrarse titulo="Formulario Nombre y Apellido" />} />
+                <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />
                 <Route path="/resultado" element={<PantallaDestino />} />
             </Routes>
         </Router>
