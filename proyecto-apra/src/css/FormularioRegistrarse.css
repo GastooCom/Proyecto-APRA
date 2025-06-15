@@ -4,13 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #a18cd1, #fbc2eb);
+    background: linear-gradient(135deg, #0d0430, #041680);
     padding: 20px;
 }
 
 /* Panel glassmorphism */
 .glass-form {
-    background: rgba(255, 255, 255, 0.15);
+    background: linear-gradient(135deg, #0d0430, #0a2ceb);
     border-radius: 20px;
     padding: 40px;
     width: 100%;
@@ -25,15 +25,15 @@
 .glass-form h2 {
     text-align: center;
     margin-bottom: 24px;
-    font-size: 24px;
+    font-size: 28px;
     color: #ffffff;
+    font-weight: bold;
 }
 
 /* Grupo de inputs */
 .form-group {
+    position: relative;
     margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
 }
 
 .form-group label {
@@ -43,6 +43,19 @@
 }
 
 .form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.DNI{
+    width: 100%;
     padding: 10px;
     border-radius: 10px;
     border: none;
@@ -63,7 +76,9 @@
 
 /* Botón */
 .glass-form button {
-    width: 100%;
+    
+    text-align: center;
+    width: 50%;
     padding: 12px;
     border-radius: 10px;
     border: none;
@@ -72,9 +87,9 @@
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
 .glass-form button:hover {
-    background: rgba(255, 255, 255, 0.5);
+    opacity: 0.9;
 }
