@@ -1,0 +1,148 @@
+.home-container {
+    font-family: sans-serif;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.home-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-placeholder {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    border-radius: 50%;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 600;
+}
+
+.nav-menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.nav-menu a:hover {
+    color: #7c3aed;
+}
+
+.header-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.login-button,
+.register-button {
+    border: 1px solid black;
+    padding: 0.25rem 1rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    color: black;
+}
+
+.login-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.register-button:hover {
+    background-image: linear-gradient(to right, #6366f1, #8b5cf6);
+    color: white;
+}
+
+.social-bar {
+    background-image: linear-gradient(to right, #4338ca, #6d28d9);
+    padding: 0.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    color: white;
+    font-size: 1.25rem;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .hero-section {
+        flex-direction: row;
+    }
+}
+
+.hero-text {
+    max-width: 32rem;
+}
+
+.hero-text h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    background: linear-gradient(to bottom right, black, #d946ef, black);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-text p {
+    color: #374151;
+    font-size: 0.875rem;
+}
+
+.info-button {
+    margin-top: 0.5rem;
+    background-color: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+}
+
+.info-button:hover {
+    background-color: #1d4ed8;
+}
+
+.hero-image img {
+    max-width: 100%;
+    max-height: 20rem;
+}
+
+.features-section {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
