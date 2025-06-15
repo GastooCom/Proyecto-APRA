@@ -3,14 +3,14 @@ import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import { MdVisibility } from "react-icons/md";
 import { FaHeadset } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
-import { SiAugmentedreality } from "react-icons/si";
-import "./Home.css";
+import { MdViewInAr } from "react-icons/md";
+import "../css/PáginaInicio.css";
 
-export default function Home() {
+export default function Inicio() {
   return (
-    <div className="home-container">
+    <div className="inicio-container">
       {/* Header */}
-      <header className="home-header">
+      <header className="inicio-header">
         <div className="header-left">
           <div className="logo-placeholder" />
           <nav className="nav-menu">
@@ -37,8 +37,8 @@ export default function Home() {
       <main className="hero-section">
         <div className="hero-text">
           <h1>
-            Asistencia<br />
-            Realidad<br />
+            Asistencia<br/>
+            Realidad<br/>
             Aumentada <MdVisibility className="inline-icon" />
           </h1>
           <p>
@@ -55,7 +55,7 @@ export default function Home() {
       {/* Features */}
       <section className="features-section">
         <div className="feature-item">
-          <SiAugmentedreality className="feature-icon" />
+          <MdViewInAr className="feature-icon" />
           <span>Realidad Aumentada</span>
         </div>
         <div className="feature-item">
