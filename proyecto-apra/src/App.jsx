@@ -2,6 +2,7 @@ import './App.css';
 import FormularioRegistrarse from './components/FormularioRegistrarse';
 import PantallaDestino from './components/PantallaDestino';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import PáginaInicio from './components/PáginaInicio' ;
 
 function App() {
   return (
