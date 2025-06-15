@@ -3,10 +3,9 @@ import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
 import { MdVisibility } from "react-icons/md";
 import { FaHeadset } from "react-icons/fa6";
 import { FaComments } from "react-icons/fa";
-
 import { MdViewInAr } from "react-icons/md";
 
-//import { SiAugmentedreality } from "react-icons/si";
+//import { MdViewInAr } from "react-icons/md";
 
 import "../css/PáginaInicio.css";
 

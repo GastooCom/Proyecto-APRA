@@ -1,5 +1,4 @@
 import React from "react";
-import App from './App';
 import { useNavigate } from "react-router-dom";
 import "../css/FormularioRegistrarse.css";
 
