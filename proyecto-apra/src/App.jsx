@@ -7,11 +7,9 @@ import PáginaInicio from './components/PáginaInicio' ;
 function App() {
   return (
     <div>
-<<<<<<< HEAD
-=======
-    <h1></h1>
->>>>>>> cad6858f61ebf3f7bac0d4f6d2e6479846266af6
-    <PáginaInicio />
+
+
+    <notificaciones />
     <Router>
             <Routes>
                 <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />

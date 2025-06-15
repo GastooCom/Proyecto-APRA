@@ -1,0 +1,162 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0d0430, #041680);
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    height: 100%;
+    animation: fadeIn 1s ease-out; 
+}
+
+.title {
+    margin-top: 100px;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #c1ffe7;
+    text-shadow: 0 0 5px #00ffe7;
+    animation: slideIn 1s ease-out; 
+}
+
+.box {
+    background: linear-gradient(135deg, #000000, #2b2bff);
+    border-radius: 15px;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInBox 1.5s ease-out; 
+}
+
+.box:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.icono_de_camara {
+    font-size: 3rem;
+    color: #ff00ff;
+    margin-bottom: 20px;
+    animation: bounce 1s infinite; 
+}
+
+.text {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    animation: fadeInText 1s ease-out; 
+}
+
+.checkbox-container {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.checkbox-container label {
+    font-size: 0.9rem;
+    color: #d1caff;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    animation: fadeInButtons 1s ease-out; 
+}
+
+.reject, .allow {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer; 
+    transition: all 0.3s ease;
+}
+
+.reject {
+    background: linear-gradient(to right, #667eea, #fc67fa);
+    color: white;
+}
+
+.reject:hover {
+    background-color: #732d91;
+    transform: scale(1.05);
+}
+
+.allow {
+    background: linear-gradient(to right, #667eea, #fc67fa);
+    color: white;
+}
+
+.allow:hover {
+    background-color: #1c5980;
+    transform: scale(1.05);
+}
+
+.footer{
+    margin-top: 192px;
+    background-color: #000000; 
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    width: 103%;
+    position: relative;
+    bottom: 0;
+    animation: fadeInFooter 1s ease-out;
+}
+
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(-30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInBox {
+    0% { opacity: 0; transform: scale(0.9); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInText {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeInButtons {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
