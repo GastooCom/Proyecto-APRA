@@ -3,11 +3,13 @@ import FormularioRegistrarse from './components/FormularioRegistrarse';
 import PantallaDestino from './components/PantallaDestino';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PáginaInicio from './components/PáginaInicio' ;
+import Asistencia from './components/Asistencia';
 
 function App() {
   return (
     <div>
     <h1></h1>
+    <Asistencia />
     <PáginaInicio />
     <Router>
             <Routes>
