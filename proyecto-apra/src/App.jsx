@@ -3,11 +3,13 @@ import FormularioRegistrarse from './components/FormularioRegistrarse';
 import PantallaDestino from './components/PantallaDestino';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PáginaInicio from './components/PáginaInicio' ;
+import PaginaRegistroGA from './components/PaginaRegistroGA';
 
 function App() {
   return (
   <div>
     <PáginaInicio />
+    <PaginaRegistroGA />
     <Router>
             <Routes>
                 <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />
