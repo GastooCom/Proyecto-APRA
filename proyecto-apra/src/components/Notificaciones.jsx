@@ -1,6 +1,6 @@
 import React from 'react';
 import "../css/Notificaciones.css";
-
+import miImagen from "../Imagenes/campanavioleta.png"; // ruta a tu imagen
 const Notificaciones = () => {
   return (
     <div className="contenedor-notificaciones">
@@ -8,7 +8,14 @@ const Notificaciones = () => {
       <div className="card">
         {/* Icono de campana al lado izquierdo */}
         <i className="fas fa-bell icon"></i>
-        <p className="text">¿Quieres permitir que te envíen y recibas notificaciones?</p>
+
+        <div className='caja-campana'>
+        <div className='campana'>
+        <img src={miImagen} alt="campana" width={70} height={70}/>
+        </div>
+        <p className="text-campana">¿Quieres permitir que te envíen y recibas notificaciones?</p>
+        </div>
+
         <div className="buttons">
           <button className="reject">RECHAZAR</button>
           <button className="allow">PERMITIR</button>

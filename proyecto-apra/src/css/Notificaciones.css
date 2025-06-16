@@ -15,6 +15,10 @@ body {
     transition: background 0.3s ease;
 }
 
+.caja-campana{
+   
+}
+
 .contenedor-notificaciones {
     text-align: center;
     color: white;
@@ -55,7 +59,9 @@ body {
     vertical-align: middle; 
 }
 */
-.text {
+
+
+.text-campana {
     font-size: 1.1rem;
     margin-bottom: 25px;
     color: #f0f0f0;

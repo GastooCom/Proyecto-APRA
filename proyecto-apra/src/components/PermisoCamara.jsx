@@ -1,13 +1,18 @@
 import React from "react";
 import '../css/PermisoCamara.css';
+import miImagen from"../Imagenes/icono-de-camara-violet.png";
 
 const CamaraPermiso = () => {
     return (
         <div className="contenedor-permisocamara">
             <h1 className="titulo">PERMISO DE CAMARA</h1>
             <div className="box">
+
+                <div className="camara">
+                    <img src={miImagen} alt="camara" width={90} height={90}/>
+                </div>
                 <div className="icono_de_camara"></div>
-                <p className="text">
+                <p className="text-camara">
                     Para continuar, necesitamos el acceso a la cámara del dispositivo<br />
                 </p>
 
