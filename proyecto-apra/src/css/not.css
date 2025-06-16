@@ -1,0 +1,139 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0d0430, #041680);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+.container {
+    text-align: center;
+    color: white;
+    position: relative;
+    padding: 20px;
+    animation: fadeIn 1s ease-out; 
+}
+
+.titulo {
+    margin-top: 150px;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    animation: slideIn 1s ease-out; 
+}
+
+.card {
+    background: linear-gradient(135deg, #000000, #2b2bff);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 400px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    transform: scale(1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05); 
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.icon {
+    color: #d82dfa;
+    font-size: 48px;
+    margin-right: 20px; 
+    animation: bounce 1s infinite; 
+    vertical-align: middle; 
+}
+
+.text {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    color: #f0f0f0;
+    display: inline-block; 
+    vertical-align: middle; 
+    animation: fadeInText 1s ease-out; 
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+
+.reject, .allow {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    position: relative;
+}
+
+.reject {
+    background: linear-gradient(to right, #667eea, #fc67fa);
+    color: white;
+}
+
+.reject:hover {
+    background-color: #732d91;
+    transform: scale(1.05);
+}
+
+.allow {
+    background: linear-gradient(to right, #667eea, #fc67fa);
+    color: white;
+}
+
+.allow:hover {
+    background-color: #1c5980;
+    transform: scale(1.05);
+}
+
+.footer{
+    height: 100px;
+    margin-left: -20px;
+    margin-top: 100px;
+    background-color: #000000; 
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    width: 103%;
+    position: relative;
+    bottom: 0;
+    animation: fadeInFooter 1s ease-out;
+}
+
+/* Animaciones */
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { transform: translateY(-30px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes fadeInText {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

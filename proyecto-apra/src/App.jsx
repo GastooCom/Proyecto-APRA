@@ -3,13 +3,22 @@ import FormularioRegistrarse from './components/FormularioRegistrarse';
 import PantallaDestino from './components/PantallaDestino';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PáginaInicio from './components/PáginaInicio' ;
+<<<<<<< HEAD
 import PaginaRegistroGA from './components/PaginaRegistroGA';
+=======
+import notificaciones from './components/notificaciones';
+>>>>>>> aa825c2df3ff55699e6d1b4320284d3c27091bde
 
 function App() {
   return (
-  <div>
+    <div>
+    <notificaciones/>
     <PáginaInicio />
+<<<<<<< HEAD
     <PaginaRegistroGA />
+=======
+
+>>>>>>> aa825c2df3ff55699e6d1b4320284d3c27091bde
     <Router>
             <Routes>
                 <Route path="/" element={<FormularioRegistrarse titulo="Registrarse" />} />
@@ -19,7 +28,7 @@ function App() {
   </div>
   );
 }
-/*
+/* 
 
 function App(){
   return (
