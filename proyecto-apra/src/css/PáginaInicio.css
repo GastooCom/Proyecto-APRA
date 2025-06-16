@@ -98,6 +98,10 @@
     max-width: 32rem;
 }
 
+h1{
+    color: black;
+}
+
 .hero-text h1 {
     font-size: 2.25rem;
     font-weight: bold;
