@@ -1,6 +1,5 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import "../css/Not.css";
+import "../css/Notificaciones.css";
 
 const Notificaciones = () => {
   return (

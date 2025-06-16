@@ -46,7 +46,7 @@ body {
     transform: scale(1.05); 
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
 }
-
+/*
 .icon {
     color: #d82dfa;
     font-size: 48px;
@@ -54,7 +54,7 @@ body {
     animation: bounce 1s infinite; 
     vertical-align: middle; 
 }
-
+*/
 .text {
     font-size: 1.1rem;
     margin-bottom: 25px;
@@ -117,7 +117,7 @@ body {
 }
 
 /* Animaciones */
-
+/*
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -137,3 +137,4 @@ body {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
+*/

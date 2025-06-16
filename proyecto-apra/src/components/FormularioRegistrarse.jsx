@@ -1,16 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../css/FormularioRegistrarse.css";
 
 // Componente de formulario
 const FormularioRegistrarse = () => {
-  const navigate = useNavigate();
+//const navigate = useNavigate();
 
   return (
     <div className="body">
-      <div className="container">
+      <div className="contenedor-registrarse">
         <div className="form_area">
-          <p className="title">Regístrate</p>
+          <h1 className="titulo-registrarse">Regístrate</h1>
           <form>
             <div className="form_group">
               <label className="sub_title" htmlFor="name">

@@ -30,7 +30,7 @@ const getStatusClass = (status) => {
 
 export default function Asistencia(){
     return (
-        <div className="container">
+        <div className="contenedor-asistencia">
             <h1 class="titulo">Asistencia de Alumnos</h1><br></br>
             <table className="attendance-table">
                 <thead>

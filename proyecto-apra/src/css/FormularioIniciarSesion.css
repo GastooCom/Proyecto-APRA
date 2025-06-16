@@ -1,3 +1,4 @@
+/*
 body {
     margin: 0;
     height: 100vh;
@@ -8,6 +9,25 @@ body {
     background: linear-gradient(135deg, #0a043c, #4e00ec);
     overflow: hidden;
     position: relative;
+}
+*/
+
+.body-iniciosesion {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.contenedor-registrarse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Cuadrado-login {

@@ -1,10 +1,10 @@
 import React from "react";
-import "../css/Permisoc.css";
+import '../css/PermisoCamara.css';
 
 const CamaraPermiso = () => {
     return (
         <div className="container">
-            <h1 className="title">PERMISO DE CAMARA</h1>
+            <h1 className="titulo">PERMISO DE CAMARA</h1>
             <div className="box">
                 <div className="icono_de_camara"></div>
                 <p className="text">

@@ -12,7 +12,7 @@
 }
 
 /* Contenedor del formulario */
-.container {
+.contenedor-registrarse {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,7 +28,7 @@
 }
 
 /* Título */
-.title {
+.titulo-registrarse {
   font-size: 1.8em;
   font-weight: 700;
   margin-bottom: 25px;
