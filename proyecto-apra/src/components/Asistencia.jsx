@@ -1,10 +1,13 @@
 import "../css/Asistencia.css";
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+import React, { useState } from 'react';
+import "@fontsource/source-code-pro";
+import "@fontsource/source-code-pro/900.css";//Titulo en Bold
 
+export default function Asistencia(){
 
 // Datos de ejemplo
-const attendanceData = [
+const [attendanceData, setAttendanceData] = useState([
     { id: 1, curso: '6to', division: '3era', nombre: 'Gaston Frigo', fecha: '2025-06-15', asistencia: 'Presente' },
     { id: 2, curso: '6to', division: '3era', nombre: 'Joaquin Lema', fecha: '2025-06-15', asistencia: 'Ausente' },
     { id: 3, curso: '6to', division: '3era', nombre: 'Aquiles Font', fecha: '2025-06-15', asistencia: 'Presente' },
@@ -13,7 +16,7 @@ const attendanceData = [
     { id: 6, curso: '6to', division: '3era', nombre: 'Wanda Maximoff', fecha: '2025-06-15', asistencia: 'Presente' },
     { id: 7, curso: '6to', division: '3era', nombre: 'Scarlet Johanson', fecha: '2025-06-15', asistencia: 'Ausente' },
     { id: 8, curso: '6to', division: '3era', nombre: 'Rodrigo Tapari', fecha: '2025-06-15', asistencia: 'Presente' },
-];
+]);
 
 const getStatusClass = (status) => {
         switch (status.toLowerCase()) {
@@ -28,10 +31,17 @@ const getStatusClass = (status) => {
         }
     }
 
-export default function Asistencia(){
+const handleChange = (id, newStatus) => {
+    const nuevosDatos = attendanceData.map((registro) =>
+      registro.id === id ? { ...registro, asistencia: newStatus } : registro
+    );
+    setAttendanceData(nuevosDatos);
+};
+
     return (
+        <div className="body-asistencia">
         <div className="contenedor-asistencia">
-            <h1 class="titulo">Asistencia de Alumnos</h1><br></br>
+            <h1 class="titulo-asistencia">Asistencia de Alumnos</h1><br></br>
             <table className="attendance-table">
                 <thead>
                     <tr>
@@ -50,14 +60,21 @@ export default function Asistencia(){
                             <td>{record.nombre}</td>
                             <td>{record.fecha}</td>
                             <td>
-                                <span className={`status ${getStatusClass(record.asistencia)}`}>
-                                    {record.asistencia}
-                                </span>
+                                <select
+                                    value={record.asistencia}
+                                    onChange={(e) => handleChange(record.id, e.target.value)}
+                                    className={`status ${getStatusClass(record.asistencia)}`}
+                                >
+                                    <option value="Presente">Presente</option>
+                                    <option value="Ausente">Ausente</option>
+                                    <option value="Tarde">Tarde</option>
+                                </select>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+        </div>
         </div>
     );
 };
