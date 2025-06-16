@@ -3,7 +3,7 @@ import "../css/Notificaciones.css";
 
 const Notificaciones = () => {
   return (
-    <div className="container">
+    <div className="contenedor-notificaciones">
       <h1 className="titulo">PERMISO DE NOTIFICACIONES</h1>
       <div className="card">
         {/* Icono de campana al lado izquierdo */}

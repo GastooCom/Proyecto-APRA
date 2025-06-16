@@ -15,7 +15,7 @@ body {
     transition: background 0.3s ease;
 }
 
-.container {
+.contenedor-notificaciones {
     text-align: center;
     color: white;
     position: relative;

@@ -3,7 +3,7 @@ import '../css/PermisoCamara.css';
 
 const CamaraPermiso = () => {
     return (
-        <div className="container">
+        <div className="contenedor-permisocamara">
             <h1 className="titulo">PERMISO DE CAMARA</h1>
             <div className="box">
                 <div className="icono_de_camara"></div>

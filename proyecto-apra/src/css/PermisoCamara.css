@@ -16,7 +16,7 @@ body {
     transition: background 0.3s ease;
 }
 */
-.container {
+.contenedor-permisocamara {
     display: flex;
     flex-direction: column;
     align-items: center;
