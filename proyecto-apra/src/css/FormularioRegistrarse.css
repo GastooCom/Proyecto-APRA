@@ -1,5 +1,5 @@
-/* Fondo con gradiente */
-.body {
+/* Estilo para el fondo */
+body {
   margin: 0;
   padding: 0;
   font-family: "Segoe UI", sans-serif;
@@ -9,10 +9,24 @@
   justify-content: center;
   align-items: center;
   color: #fff;
+  overflow: hidden;
+  animation: fadeIn 1s ease;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Contenedor del formulario */
-.contenedor-registrarse {
+.container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,21 +39,44 @@
   border-radius: 25px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
   width: 350px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Título */
-.titulo-registrarse {
+.form_area:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
+}
+
+/* Título del formulario */
+.title {
   font-size: 1.8em;
   font-weight: 700;
   margin-bottom: 25px;
   text-align: center;
+  animation: slideDown 0.5s ease;
 }
 
-/* Grupo de entrada */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Grupo de entradas */
 .form_group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.form_group:hover {
+  transform: scale(1.03);
 }
 
 /* Etiquetas */
@@ -49,7 +86,7 @@
   font-size: 0.95em;
 }
 
-/* Input */
+/* Campos de entrada */
 .form_style {
   padding: 10px 12px;
   border: none;
@@ -58,10 +95,16 @@
   color: white;
   font-size: 1em;
   outline: none;
+  transition: all 0.3s ease;
 }
 
 .form_style::placeholder {
   color: #ccc;
+}
+
+.form_style:focus {
+  border-bottom: 2px solid #29f5a6;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
 /* Botón */
@@ -76,11 +119,14 @@
   color: white;
   cursor: pointer;
   font-size: 1em;
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
+  transform: scale(1);
 }
 
 .btn:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #fc67fa;
 }
 
 /* Pie del formulario */
@@ -88,6 +134,7 @@
   margin-top: 20px;
   font-size: 0.9em;
   color: #ddd;
+  text-align: center;
 }
 
 /* Enlace */
@@ -95,13 +142,15 @@
   color: #29f5a6;
   font-weight: bold;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
 .link:hover {
   text-decoration: underline;
+  color: #00ffaa;
 }
 
-/* Íconos */
+/* Íconos dentro de las etiquetas */
 .sub_title i {
   margin-right: 8px;
 }
