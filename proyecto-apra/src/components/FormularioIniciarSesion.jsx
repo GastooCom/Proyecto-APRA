@@ -1,26 +1,34 @@
 import React from "react";
 import "../css/FormularioIniciarSesion.css";
+import google from "../Imagenes/gooogle.png";
+import apple from "../Imagenes/images-removebg-preview.png";
 
 const FormularioIniciarSesion = () => {
   return (
-    <div className="body-iniciosesion">
-    <div className="contenedor-iniciosesion">
-    <div className="Cuadrado-login">
-      <h1>Iniciar con Google</h1>
+    <div className="caja-iniciosesion">
+    <div className="caja-login">
+      <h1>Iniciar Sesión</h1>
 
-      <div className="Google">
-        <img src="src/Imagenes/Google.jpeg" alt="Google" />
-        <span>Continuar con Google</span>
+      <div className="social-login">
+        <button className="btn btn-social btn-google">
+          <img src={google} alt="registrar" width={70} height={70}/>
+          <span>Continuar con Google</span>
+        </button>
+
+        <button className="btn btn-social btn-apple">
+          <img src={apple} alt="iniciar" width={70} height={70}/>
+          <span>Continuar con Apple</span>
+        </button>
       </div>
 
-      <div className="Apple">
-        <img src="src/Imagenes/b531b3cd-f41c-4628-9e4a-141d0275ab16.jpeg" alt="Apple" />
-        <span>Registrarse con Apple</span>
+      <div className="links">
+        <p>
+          ¿No tienes una cuenta? <a href="#">Regístrate</a>
+        </p>
       </div>
-    </div>
     </div>
     </div>
   );
+  
 };
-
 export default FormularioIniciarSesion;
