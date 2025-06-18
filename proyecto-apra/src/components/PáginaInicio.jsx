@@ -1,21 +1,15 @@
-// Home.jsx
-import { FaInstagram, FaFacebook, FaTiktok, FaYoutube } from "react-icons/fa";
-import { MdVisibility } from "react-icons/md";
-import { FaHeadset } from "react-icons/fa6";
-import { FaComments } from "react-icons/fa";
-import { MdViewInAr } from "react-icons/md";
+import React from 'react';
+import '../css/PáginaInicio.css';
+import ImagenInic from "../Imagenes/161042942-icono-de-cirugía-plástica-ocular-estilo-de-esquema.jpg";
+import ImagenInicio from "../Imagenes/Augmented-reality-1056x664.png";
 
-//import { MdViewInAr } from "react-icons/md";
 
-import "../css/PáginaInicio.css";
-
-export default function Inicio() {
+const AsistenciaRA = () => {
   return (
     <div className="inicio-container">
-      {/* Header */}
       <header className="inicio-header">
         <div className="header-left">
-          <div className="logo-placeholder" />
+          <div className="logo-placeholder"></div>
           <nav className="nav-menu">
             <a href="#">Inicio</a>
             <a href="#">Asistencia</a>
@@ -28,49 +22,49 @@ export default function Inicio() {
         </div>
       </header>
 
-      {/* Social bar */}
       <div className="social-bar">
-        <FaInstagram className="icon" />
-        <FaFacebook className="icon" />
-        <FaTiktok className="icon" />
-        <FaYoutube className="icon" />
+        <i className="fab fa-instagram icon"></i>
+        <i className="fab fa-facebook icon"></i>
+        <i className="fab fa-tiktok icon"></i>
+        <i className="fab fa-youtube icon"></i>
       </div>
 
-      {/* Hero Section */}
       <main className="hero-section">
         <div className="hero-text">
-          <h1>
-            Asistencia<br/>
-            Realidad<br/>
-            Aumentada <MdVisibility className="inline-icon" />
+          <h1 className="hero-title">
+            Asistencia<br /> Realidad <br /> Aumentada
+            <img src={ImagenInic} className='inline-icon' alt="Fots" />
           </h1>
           <p>
-            Proporcionamos asistencia experta remota mediante la realidad aumentada
-            para técnicos en campo
+            Proporcionamos asistencia experta remota mediante la realidad aumentada para técnicos en campo
           </p>
-          <button className="info-button">Más información</button>
+          <button className="info-button">Mas información</button>
         </div>
         <div className="hero-image">
-          <img src="/illustration-ar.png" alt="Ilustración" />
+          <img src={ImagenInicio} alt="Fots" width={500} height={900} />
         </div>
       </main>
 
-      {/* Features */}
       <section className="features-section">
         <div className="feature-item">
-
-          <MdViewInAr className="feature-icon" />
+          <i className="material-icons feature-icon">view_in_ar</i>
           <span>Realidad Aumentada</span>
         </div>
         <div className="feature-item">
-          <FaHeadset className="feature-icon" />
+          <i className="fas fa-headset feature-icon"></i>
           <span>Soporte Técnico</span>
         </div>
         <div className="feature-item">
-          <FaComments className="feature-icon" />
+          <i className="fas fa-comments feature-icon"></i>
           <span>Comunicación</span>
         </div>
       </section>
+
+      <footer className="footer">
+        <p>&copy; 2025 Asistencia AR. Todos los derechos reservados.</p>
+      </footer>
     </div>
   );
-}
+};
+
+export default AsistenciaRA;
