@@ -25,6 +25,7 @@ body {
     padding: 20px;
     height: 100%;
     animation: fadeIn 1s ease-out; 
+    background:linear-gradient(to bottom, black, rgb(2, 2, 70));
 }
 
 .titulo {
