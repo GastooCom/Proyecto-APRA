@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/PáginaInicio.css';
-import ImagenInic from "../Imagenes/161042942-icono-de-cirugía-plástica-ocular-estilo-de-esquema.jpg";
-import ImagenInicio from "../Imagenes/Augmented-reality-1056x664.png";
+import ImagenInic from "../Imagenes/161042942-icono-de-cirugía-plástica-ocular-estilo-de-esquema-removebg-preview.png";
+import ImagenInicio from "../Imagenes/ImagenInc.png";
 
 
 const AsistenciaRA = () => {
@@ -47,7 +47,7 @@ const AsistenciaRA = () => {
 
       <section className="features-section">
         <div className="feature-item">
-          <i className="material-icons feature-icon">view_in_ar</i>
+          <i className="material-icons feature-icon"></i>
           <span>Realidad Aumentada</span>
         </div>
         <div className="feature-item">
