@@ -3,7 +3,7 @@
 .pagina-registro {
     margin: 0;
     padding: 0;
-    font-family: "Segoe UI", sans-serif;
+    font-family: "Source Code Pro", monospace;
     background: linear-gradient(to bottom, black, rgb(2, 2, 70));
     min-height: 100vh;
     display: flex;
