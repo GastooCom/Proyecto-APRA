@@ -21,7 +21,7 @@ body {
 
 .contenedor-notificaciones {
     text-align: center;
-    color: white;
+    background:linear-gradient(to bottom, black, rgb(2, 2, 70));
     position: relative;
     padding: 20px;
     animation: fadeIn 1s ease-out; 

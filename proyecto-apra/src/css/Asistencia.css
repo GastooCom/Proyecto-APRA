@@ -16,7 +16,7 @@
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     min-height: 100vh;
-    font-family:;
+    font-family:"Source Code Pro", monospace;
     background:linear-gradient(to bottom, black, rgb(2, 2, 70));
     color: #333;
     display: flex;
