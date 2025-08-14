@@ -31,52 +31,80 @@ const getStatusClass = (status) => {
         }
     }
 
-const handleChange = (id, newStatus) => {
+const handleChange = (id, field, value) => {
     const nuevosDatos = attendanceData.map((registro) =>
-      registro.id === id ? { ...registro, asistencia: newStatus } : registro
+      registro.id === id ? { ...registro, [field]: value } : registro
     );
     setAttendanceData(nuevosDatos);
 };
 
     return (
-        <div className="body-asistencia">
-        <div className="contenedor-asistencia">
-            <h1 class="titulo-asistencia">Asistencia de Alumnos</h1><br></br>
-            <table className="attendance-table">
-                <thead>
-                    <tr>
-                        <th>Curso</th>
-                        <th>División</th>
-                        <th>Nombre y Apellido</th>
-                        <th>Fecha</th>
-                        <th>Asistencia</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {attendanceData.map((record) => (
-                        <tr key={record.id}>
-                            <td>{record.curso}</td>
-                            <td>{record.division}</td>
-                            <td>{record.nombre}</td>
-                            <td>{record.fecha}</td>
-                            <td>
-                                <select
-                                    value={record.asistencia}
-                                    onChange={(e) => handleChange(record.id, e.target.value)}
-                                    className={`status ${getStatusClass(record.asistencia)}`}
-                                >
-                                    <option value="Presente">Presente</option>
-                                    <option value="Ausente">Ausente</option>
-                                    <option value="Tarde">Tarde</option>
-                                </select>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-        </div>
-    );
+    <div className="body-asistencia">
+      <div className="contenedor-asistencia">
+        <h1 className="titulo-asistencia">Asistencia de Alumnos</h1><br />
+        <table className="attendance-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Curso</th>
+              <th>División</th>
+              <th>Nombre y Apellido</th>
+              <th>Fecha</th>
+              <th>Asistencia</th>
+            </tr>
+          </thead>
+          <tbody>
+            {attendanceData.map((record) => (
+              <tr key={record.id}>
+                <td>
+                   <td>{record.id}</td>
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={record.curso}
+                    onChange={(e) => handleChange(record.id, "curso", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={record.division}
+                    onChange={(e) => handleChange(record.id, "division", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value={record.nombre}
+                    onChange={(e) => handleChange(record.id, "nombre", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <input
+                    type="date"
+                    value={record.fecha}
+                    onChange={(e) => handleChange(record.id, "fecha", e.target.value)}
+                  />
+                </td>
+                <td>
+                  <select
+                    value={record.asistencia}
+                    onChange={(e) => handleChange(record.id, "asistencia", e.target.value)}
+                    className={`status ${getStatusClass(record.asistencia)}`}
+                  >
+                    <option value="Presente">Presente</option>
+                    <option value="Ausente">Ausente</option>
+                    <option value="Tarde">Tarde</option>
+                  </select>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 };
 
 const container = document.getElementById('root');
