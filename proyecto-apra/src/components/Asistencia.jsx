@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import React, { useState } from 'react';
 import "@fontsource/source-code-pro";
 import "@fontsource/source-code-pro/900.css"; // Título en negrita
+import { useNavigate } from "react-router-dom";
 
 export default function Asistencia() {
   const [datosAsistencia, setDatosAsistencia] = useState([
@@ -36,18 +37,20 @@ export default function Asistencia() {
     setDatosAsistencia(nuevosDatos);
   };
 
+  //const navigate = useNavigate();
+
   return (
-    <div className="cuerpo-asistencia">
       <div className="contenedor-asistencia">
-        <button className="boton-volver" onClick={() => alert('Volver atrás')}>
+        {/* 
+        <button className="boton-volver" onClick={() => navigate("/")}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5"></path>
             <path d="M12 19l-7-7 7-7"></path>
           </svg>
         </button>
-
-        <h1 className="titulo-asistencia">Asistencia de Alumnos</h1><br />
+        */}
+        <h1 className="titulo-asistencia">Asistencia de Estudiantes</h1><br />
 
         <div className="tabla-asistencia">
           <div className="fila encabezado">
@@ -105,10 +108,10 @@ export default function Asistencia() {
           ))}
         </div>
       </div>
-    </div>
   );
-}
-
+} 
+/*
 const contenedor = document.getElementById('root');
 const root = createRoot(contenedor);
 root.render(<Asistencia />);
+*/

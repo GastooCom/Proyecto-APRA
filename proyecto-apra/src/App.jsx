@@ -9,6 +9,9 @@ import FormularioIniciarSesion from './components/FormularioIniciarSesion';
 import Notificaciones from './components/Notificaciones';
 import PermisoCamara from './components/PermisoCamara';
 
+//const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
 function App() {
   return (
     <div>
@@ -21,5 +24,21 @@ function App() {
   </div>
   );
 }
+/*
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<PáginaInicio />} />
+        <Route path="/asistencia" element={<Asistencia />} />
+        <Route path="/registrarse" element={<FormularioRegistrarse />} />
+        <Route path="/login" element={<FormularioIniciarSesion />} />
+        <Route path="/notificaciones" element={<Notificaciones />} />
+        <Route path="/permisos" element={<PermisoCamara />} />
+      </Routes>
+    </Router>
+  );
+}
+*/
 
 export default App;
