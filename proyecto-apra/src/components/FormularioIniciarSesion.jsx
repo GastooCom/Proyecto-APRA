@@ -4,31 +4,61 @@ import google from "../Imagenes/gooogle.png";
 import apple from "../Imagenes/images-removebg-preview.png";
 
 const FormularioIniciarSesion = () => {
+  // 📌 Login con Google
+  const handleGoogleLogin = async () => {
+    setError('');
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const userData = {
+        usuario: result.user.displayName,
+        email: result.user.email,
+        foto: result.user.photoURL,
+        uid: result.user.uid,
+        rol: 'google_user'
+      };
+      setUser(userData);
+      localStorage.setItem('usuario', JSON.stringify(userData));
+      navigate('/');
+    } catch (err) {
+      console.error('Google Sign-In error:', err?.code, err?.message);
+
+      // Fallback si el popup fue bloqueado
+      if (err?.code === 'auth/popup-blocked' || err?.code === 'auth/cancelled-popup-request') {
+        try {
+          await signInWithRedirect(auth, provider);
+          return;
+        } catch (e2) {
+          console.error('Redirect fallback error:', e2?.code, e2?.message);
+        }
+      }
+      setError(`No se pudo iniciar sesión con Google (${err?.code || 'error-desconocido'}).`);
+    }
+  };
+
   return (
-    <div className="caja-iniciosesion">
-    <div className="caja-login">
-      <h1>Iniciar Sesión</h1>
-
-      <div className="social-login">
-        <button className="btn btn-social btn-google">
-          <img src={google} alt="registrar" width={70} height={70}/>
-          <span>Continuar con Google</span>
-        </button>
-
-        <button className="btn btn-social btn-apple">
-          <img src={apple} alt="iniciar" width={70} height={70}/>
-          <span>Continuar con Apple</span>
-        </button>
-      </div>
-
-      <div className="links">
-        <p>
-          ¿No tienes una cuenta? <a href="#">Regístrate</a>
-        </p>
-      </div>
-    </div>
-    </div>
-  );
-  
+    <Container maxWidth="sm">
+      <Paper sx={{ mt: 10, p: 4 }}>
+@@ -68,10 +102,17 @@ const Login = ({ setUser }) => {
+          value={credenciales.contrasena}
+          onChange={(e) => setCredenciales({ ...credenciales, contrasena: e.target.value })}
+        />
+        <Box mt={2}>
+        <Box mt={2} display="flex" flexDirection="column" gap={2}>
+          <Button variant="contained" color="primary" onClick={handleLogin}>
+            Ingresar
+          </Button>
+          <Button
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            onClick={handleGoogleLogin}
+          >
+            Ingresar con Google
+          </Button>
+        </Box>
+      </Paper>
+    </Container>
+);
 };
 export default FormularioIniciarSesion;
