@@ -1,9 +1,22 @@
 import React from 'react';
 import "../css/Notificaciones.css";
-import miImagen from "../Imagenes/campanavioleta.png"; // ruta a tu imagen
+import miImagen from "../Imagenes/campanavioleta.png";// ruta a tu imagen
+import { useNavigate } from 'react-router-dom';
 const Notificaciones = () => {
+
+    const navigate = useNavigate();
+
   return (
     <div className="contenedor-notificaciones">
+         
+        <button className="boton-volver" onClick={() => navigate("/")}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
       <h1 className="titulo">PERMISO DE NOTIFICACIONES</h1>
       <div className="card">
         {/* Icono de campana al lado izquierdo */}
@@ -18,7 +31,7 @@ const Notificaciones = () => {
 
         <div className="buttons">
           <button className="reject">RECHAZAR</button>
-          <button className="allow">PERMITIR</button>
+          <button className="allow">PERMITIR</button> 
         </div>
       </div>
       <footer className="footer">

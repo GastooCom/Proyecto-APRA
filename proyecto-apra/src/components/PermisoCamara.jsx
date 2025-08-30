@@ -1,10 +1,20 @@
 import React from "react";
 import '../css/PermisoCamara.css';
 import miImagen from"../Imagenes/icono-de-camara-violet.png";
+import { useNavigate } from "react-router-dom";
 
 const CamaraPermiso = () => {
+
+    const navigate = useNavigate();
     return (
         <div className="contenedor-permisocamara">
+            <button className="boton-volver" onClick={() => navigate("/")}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+        </button>
             <h1 className="titulo">PERMISO DE CAMARA</h1>
             <div className="box">
 
