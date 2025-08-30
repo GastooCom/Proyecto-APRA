@@ -2,23 +2,35 @@ import React from 'react';
 import '../css/PáginaInicio.css';
 import ImagenInic from "../Imagenes/161042942-icono-de-cirugía-plástica-ocular-estilo-de-esquema-removebg-preview.png";
 import ImagenInicio from "../Imagenes/ImagenInc.png";
-
+import { useNavigate } from "react-router-dom";
 
 const AsistenciaRA = () => {
+  const navigate = useNavigate();
   return (
     <div className="inicio-container">
       <header className="inicio-header">
         <div className="header-left">
           <div className="logo-placeholder"></div>
           <nav className="nav-menu">
-            <a href="#">Inicio</a>
-            <a href="FormularioIniciarSesion">Asistencia</a>
-            <a href="#">Permisos</a>
+            <button onClick={() => navigate("/")}>Inicio</button>
+            <button onClick={() => navigate("/asistencia")}>Asistencia</button>
+            <button onClick={() => navigate("/permisoscam")}>Permiso de Camara</button>
+            <button onClick={() => navigate("/permisosnoti")}>Permiso de Notificaciones</button>
           </nav>
         </div>
         <div className="header-right">
-          <a href="#" className="login-button">Iniciar sesión</a>
-          <a href="#" className="register-button">Registrarse</a>
+          <button
+            onClick={() => navigate("/iniciar-sesion")}
+            className="login-button"
+            >
+            Iniciar sesión
+          </button>
+          <button
+            onClick={() => navigate("/registrarse")}
+            className="register-button"
+          >
+            Registrarse
+          </button>
         </div>
       </header>
 

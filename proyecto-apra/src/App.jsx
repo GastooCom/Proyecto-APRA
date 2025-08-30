@@ -47,8 +47,8 @@ function App() {
         <Route path="/asistencia" element={<Asistencia />} />
         <Route path="/registrarse" element={<FormularioRegistrarse />} />
         <Route path="/iniciar-sesion" element={<FormularioIniciarSesion />} />
-        <Route path="/notificaciones" element={<Notificaciones />} />
-        <Route path="/permisos" element={<PermisoCamara />} />
+        <Route path="/permisosnoti" element={<Notificaciones />} />
+        <Route path="/permisoscam" element={<PermisoCamara />} />
       </Routes>
     </Router>
   );
