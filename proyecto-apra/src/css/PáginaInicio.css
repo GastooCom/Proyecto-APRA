@@ -87,7 +87,7 @@ body {
 }
 
 .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.7rem;
     font-weight: bold;
     line-height: 1.2;
     background: linear-gradient(to right, #f472b6, #c084fc);
@@ -97,7 +97,7 @@ body {
 
 .hero-text p {
     font-size: 1rem;
-    color: #cbd5e1;
+    color: white;
 }
 
 .inline-icon {
@@ -178,7 +178,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #e0e0e0;
+    color: white;
     transition: transform 0.3s, color 0.3s;
 }
 
@@ -225,7 +225,7 @@ body {
 
 .nav-menu button:hover {
     background: rgba(255, 255, 255, 0.1);
-    color: #f0f0f0;
+    color: white;
 }
 
 .nav-menu button:focus {
