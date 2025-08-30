@@ -12,7 +12,7 @@ const AsistenciaRA = () => {
           <div className="logo-placeholder"></div>
           <nav className="nav-menu">
             <a href="#">Inicio</a>
-            <a href="#">Asistencia</a>
+            <a href="FormularioIniciarSesion">Asistencia</a>
             <a href="#">Permisos</a>
           </nav>
         </div>

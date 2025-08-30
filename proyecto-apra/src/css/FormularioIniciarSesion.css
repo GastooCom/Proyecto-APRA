@@ -97,6 +97,20 @@ h1 {
     text-decoration: underline;
 }
 
+.link-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    /* azul tipo enlace */
+    text-decoration: underline;
+    cursor: pointer;
+    font: inherit;
+}
+
+.link-button:hover {
+    color: #0056b3;
+}
+
 .input-group {
     margin-bottom: 1.25rem;
     text-align: left;
