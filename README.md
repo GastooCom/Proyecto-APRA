@@ -55,3 +55,16 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 - "Menor sobrecarga de información:" Se aplicó una interfaz e inicio más amigable.
 ## Explicación:
 "Se utilizaron colores sencillos, oscuros, pero eficientes a la hora de llamar la atención del Usuario como también su tipografía, y a su vez, se utilizó un diseño igual de atractivo y amigable..."
+
+## Vistas/Capturas de la página:
+- **Página Inicio:**
+![alt text]({28F844D9-A994-41FE-A608-641BCAE4B786}.png)
+- **Tabla de Asistencia:**
+![alt text]({1DCF9CDC-3BCA-47B4-ADFE-3308ACE39E92}.png)
+- **Permisos de Cámara:**
+![alt text]({0DCD1C71-8C01-455A-95C3-47CEBC5ADEED}.png)
+- **Permisos de Notificaciones:**
+![alt text]({50469F58-E314-4D98-AD5D-687DA9B89A8C}.png)
+- **Inicio Sesión:**
+![alt text]({055A23C3-7073-454A-BBA5-EE543529442F}.png)
+- **Registrarse:**
