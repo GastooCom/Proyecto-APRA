@@ -68,3 +68,4 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 - **Inicio Sesión:**
 ![alt text]({055A23C3-7073-454A-BBA5-EE543529442F}.png)
 - **Registrarse:**
+![alt text](image.png)
