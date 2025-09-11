@@ -4,21 +4,37 @@ import React, { useState } from 'react';
 import "@fontsource/source-code-pro";
 import "@fontsource/source-code-pro/900.css"; // Título en negrita
 import { useNavigate } from "react-router-dom";
+import { useAsistencias } from "../hooks/useAsistencias";
+import { db } from "../firebase/firebase";
+import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { useEffect } from "react"; 
 
 export default function Asistencia() {
+  /*
   const [datosAsistencia, setDatosAsistencia] = useState([
     { id: 1, curso: '6to', division: '3era', nombre: 'Gaston Frigo', fecha: '2025-06-15', estado: 'Presente' },
     { id: 2, curso: '6to', division: '3era', nombre: 'Joaquin Lema', fecha: '2025-06-15', estado: 'Ausente' },
     { id: 3, curso: '6to', division: '3era', nombre: 'Aquiles Font', fecha: '2025-06-15', estado: 'Presente' },
     { id: 4, curso: '6to', division: '3era', nombre: 'Facundo Carrasco', fecha: '2025-06-15', estado: 'Tarde' },
     { id: 5, curso: '6to', division: '3era', nombre: 'Mateo Acunia', fecha: '2025-06-15', estado: 'Presente' },
-    { id: 6, curso: '6to', division: '3era', nombre: 'Wanda Maximoff', fecha: '2025-06-15', estado: 'Presente' },
-    { id: 7, curso: '6to', division: '3era', nombre: 'Scarlet Johanson', fecha: '2025-06-15', estado: 'Ausente' },
-    { id: 8, curso: '6to', division: '3era', nombre: 'Rodrigo Tapari', fecha: '2025-06-15', estado: 'Presente' },
-  ]);
+    ]);
+  */
+    const navigate = useNavigate();
+    const { datosAsistencia, actualizarAsistencia, loading } = useAsistencias();
 
+/*
+    useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "asistencias"));
+      const data = querySnapshot.docs.map((doc) => doc.data());
+      setDatosAsistencia(data);
+    };
+
+    fetchData();
+  }, []);
+*/
   const obtenerClaseEstado = (estado) => {
-    switch (estado.toLowerCase()) {
+    switch (estado?.toLowerCase()) {
       case 'presente':
         return 'estado-presente';
       case 'ausente':
@@ -30,15 +46,18 @@ export default function Asistencia() {
     }
   };
 
-  const manejarCambio = (id, campo, valor) => {
+  if (loading) return <p>Cargando asistencias...</p>;
+  /*
+  const manejarCambio = async (id, campo, valor) => {
     const nuevosDatos = datosAsistencia.map((registro) =>
       registro.id === id ? { ...registro, [campo]: valor } : registro
     );
     setDatosAsistencia(nuevosDatos);
+
+    const registro = nuevosDatos.find((r) => r.id === id);
+    await setDoc(doc(db, "asistencias", id.toString()), registro);
   };
-
-  const navigate = useNavigate();
-
+  */
   return (
       <div className="contenedor-asistencia">
          
@@ -69,34 +88,34 @@ export default function Asistencia() {
                 <input
                   type="text"
                   value={registro.curso}
-                  onChange={(e) => manejarCambio(registro.id, "curso", e.target.value)}
+                  onChange={(e) => actualizarAsistencia(registro.id, "curso", e.target.value)}
                 />
               </div>
               <div className="celda">
                 <input
                   type="text"
                   value={registro.division}
-                  onChange={(e) => manejarCambio(registro.id, "division", e.target.value)}
+                  onChange={(e) => actualizarAsistencia(registro.id, "division", e.target.value)}
                 />
               </div>
               <div className="celda">
                 <input
                   type="text"
                   value={registro.nombre}
-                  onChange={(e) => manejarCambio(registro.id, "nombre", e.target.value)}
+                  onChange={(e) => actualizarAsistencia(registro.id, "nombre", e.target.value)}
                 />
               </div>
               <div className="celda">
                 <input
                   type="date"
                   value={registro.fecha}
-                  onChange={(e) => manejarCambio(registro.id, "fecha", e.target.value)}
+                  onChange={(e) => actualizarAsistencia(registro.id, "fecha", e.target.value)}
                 />
               </div>
               <div className="celda">
                 <select
                   value={registro.estado}
-                  onChange={(e) => manejarCambio(registro.id, "estado", e.target.value)}
+                  onChange={(e) => actualizarAsistencia(registro.id, "estado", e.target.value)}
                   className={`estado ${obtenerClaseEstado(registro.estado)}`}
                 >
                   <option value="Presente">Presente</option>
