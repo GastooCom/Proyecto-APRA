@@ -83,7 +83,7 @@ export default function Asistencia() {
           
           {datosAsistencia.map((registro) => (
             <div className="fila" key={registro.id}>
-              <div className="celda">{registro.id}</div>
+              <div className="celda">{registro.numero}</div>
               <div className="celda">
                 <input
                   type="text"

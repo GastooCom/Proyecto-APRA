@@ -10,11 +10,11 @@ export function useAsistencias() {
     const fetchData = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "asistencias"));
-        const data = querySnapshot.docs.map((docSnap) => ({
+        const data = querySnapshot.docs.map((docSnap, index) => ({
           id: docSnap.id,
+          numero: index + 1,
           ...docSnap.data(),
         }));
-        console.log("Datos traídos de Firestore:", data);
         setDatosAsistencia(data);
       } catch (error) {
         console.error("Error al cargar asistencias:", error);
