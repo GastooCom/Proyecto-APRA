@@ -20,7 +20,7 @@ export default function Asistencia() {
     ]);
   */
     const navigate = useNavigate();
-    const { datosAsistencia, actualizarAsistencia, loading, fetchAsistencias } = useAsistencias();
+    const { datosAsistencia, actualizarAsistencia, loading, fetchAsistencias, borrarAsistencia } = useAsistencias();
 
 /*
     useEffect(() => {
@@ -150,7 +150,6 @@ export default function Asistencia() {
         <button type="submit">Agregar</button>
       </form>
 
-      {/* --- Tabla existente --- */}
       <div className="tabla-asistencia">
         <div className="fila encabezado">
           <div className="celda">ID</div>
@@ -212,6 +211,20 @@ export default function Asistencia() {
                 <option value="Ausente">Ausente</option>
                 <option value="Tarde">Tarde</option>
               </select>
+            </div>
+            <div className="celda">
+              <button
+                onClick={() => borrarAsistencia(registro.id)}
+                style={{
+                  background: "red",
+                  color: "white",
+                  border: "none",
+                  padding: "5px 10px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                }}
+              >Borrar
+              </button>
             </div>
           </div>
         ))}
