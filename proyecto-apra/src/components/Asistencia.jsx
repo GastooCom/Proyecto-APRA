@@ -6,7 +6,7 @@ import "@fontsource/source-code-pro/900.css"; // Título en negrita
 import { useNavigate } from "react-router-dom";
 import { useAsistencias } from "../hooks/useAsistencias";
 import { db } from "../firebase/firebase";
-import { collection, doc, setDoc, getDocs } from "firebase/firestore";
+import { collection, doc, setDoc, getDocs, addDoc } from "firebase/firestore";
 import { useEffect } from "react"; 
 
 export default function Asistencia() {
@@ -20,7 +20,7 @@ export default function Asistencia() {
     ]);
   */
     const navigate = useNavigate();
-    const { datosAsistencia, actualizarAsistencia, loading } = useAsistencias();
+    const { datosAsistencia, actualizarAsistencia, loading, fetchAsistencias } = useAsistencias();
 
 /*
     useEffect(() => {
@@ -33,6 +33,50 @@ export default function Asistencia() {
     fetchData();
   }, []);
 */
+  const [nuevo, setNuevo] = useState({
+    curso: "",
+    division: "",
+    nombre: "",
+    fecha: "",
+    estado: "Presente",
+  });
+
+  const handleChangeNuevo = (campo, valor) => {
+    setNuevo({ ...nuevo, [campo]: valor });
+  };
+
+ const handleAdd = async (e) => {
+  e.preventDefault();
+
+  try {
+    const maxNumero =
+      datosAsistencia.length > 0
+        ? Math.max(...datosAsistencia.map((a) => a.numero || 0))
+        : 0;
+
+    const numero = maxNumero + 1;
+
+    await addDoc(collection(db, "asistencias"), {
+      ...nuevo,
+      numero,
+    });
+
+    alert("Asistencia agregada ✅");
+
+    setNuevo({
+      curso: "",
+      division: "",
+      nombre: "",
+      fecha: "",
+      estado: "Presente",
+    });
+
+    fetchAsistencias();
+  } catch (error) {
+    console.error("Error al agregar asistencia:", error);
+  }
+};
+
   const obtenerClaseEstado = (estado) => {
     switch (estado?.toLowerCase()) {
       case 'presente':
@@ -69,66 +113,112 @@ export default function Asistencia() {
           </svg>
         </button>
         
-        <h1 className="titulo-asistencia">Asistencia de Estudiantes</h1><br />
+        <h1 className="titulo-asistencia">Asistencia de Estudiantes</h1>
 
-        <div className="tabla-asistencia">
-          <div className="fila encabezado">
-            <div className="celda">ID</div>
-            <div className="celda">Curso</div>
-            <div className="celda">División</div>
-            <div className="celda">Nombre y Apellido</div>
-            <div className="celda">Fecha</div>
-            <div className="celda">Asistencia</div>
-          </div>
-          
-          {datosAsistencia.map((registro) => (
-            <div className="fila" key={registro.id}>
-              <div className="celda">{registro.numero}</div>
-              <div className="celda">
-                <input
-                  type="text"
-                  value={registro.curso}
-                  onChange={(e) => actualizarAsistencia(registro.id, "curso", e.target.value)}
-                />
-              </div>
-              <div className="celda">
-                <input
-                  type="text"
-                  value={registro.division}
-                  onChange={(e) => actualizarAsistencia(registro.id, "division", e.target.value)}
-                />
-              </div>
-              <div className="celda">
-                <input
-                  type="text"
-                  value={registro.nombre}
-                  onChange={(e) => actualizarAsistencia(registro.id, "nombre", e.target.value)}
-                />
-              </div>
-              <div className="celda">
-                <input
-                  type="date"
-                  value={registro.fecha}
-                  onChange={(e) => actualizarAsistencia(registro.id, "fecha", e.target.value)}
-                />
-              </div>
-              <div className="celda">
-                <select
-                  value={registro.estado}
-                  onChange={(e) => actualizarAsistencia(registro.id, "estado", e.target.value)}
-                  className={`estado ${obtenerClaseEstado(registro.estado)}`}
-                >
-                  <option value="Presente">Presente</option>
-                  <option value="Ausente">Ausente</option>
-                  <option value="Tarde">Tarde</option>
-                </select>
-              </div>
-            </div>
-          ))}
+      <form onSubmit={handleAdd} className="form-nueva-asistencia">
+        <input
+          type="text"
+          placeholder="Curso"
+          value={nuevo.curso}
+          onChange={(e) => handleChangeNuevo("curso", e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="División"
+          value={nuevo.division}
+          onChange={(e) => handleChangeNuevo("division", e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Nombre y Apellido"
+          value={nuevo.nombre}
+          onChange={(e) => handleChangeNuevo("nombre", e.target.value)}
+        />
+        <input
+          type="date"
+          value={nuevo.fecha}
+          onChange={(e) => handleChangeNuevo("fecha", e.target.value)}
+        />
+        <select
+          value={nuevo.estado}
+          onChange={(e) => handleChangeNuevo("estado", e.target.value)}
+        >
+          <option value="Presente">Presente</option>
+          <option value="Ausente">Ausente</option>
+          <option value="Tarde">Tarde</option>
+        </select>
+        <button type="submit">Agregar</button>
+      </form>
+
+      {/* --- Tabla existente --- */}
+      <div className="tabla-asistencia">
+        <div className="fila encabezado">
+          <div className="celda">ID</div>
+          <div className="celda">Curso</div>
+          <div className="celda">División</div>
+          <div className="celda">Nombre y Apellido</div>
+          <div className="celda">Fecha</div>
+          <div className="celda">Asistencia</div>
         </div>
+
+        {datosAsistencia.map((registro) => (
+          <div className="fila" key={registro.id}>
+            <div className="celda">{registro.numero}</div>
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.curso}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "curso", e.target.value)
+                }
+              />
+            </div>
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.division}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "division", e.target.value)
+                }
+              />
+            </div>
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.nombre}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "nombre", e.target.value)
+                }
+              />
+            </div>
+            <div className="celda">
+              <input
+                type="date"
+                value={registro.fecha}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "fecha", e.target.value)
+                }
+              />
+            </div>
+            <div className="celda">
+              <select
+                value={registro.estado}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "estado", e.target.value)
+                }
+                className={`estado ${obtenerClaseEstado(registro.estado)}`}
+              >
+                <option value="Presente">Presente</option>
+                <option value="Ausente">Ausente</option>
+                <option value="Tarde">Tarde</option>
+              </select>
+            </div>
+          </div>
+        ))}
       </div>
+    </div>
   );
-} 
+}
 /*
 const contenedor = document.getElementById('root');
 const root = createRoot(contenedor);
