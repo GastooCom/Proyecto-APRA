@@ -13,7 +13,7 @@ export function useAsistencias() {
 */
   const [datosAsistencia, setDatosAsistencia] = useState([]);
   const [loading, setLoading] = useState(true);
-  /*
+  
   const fetchAsistencias = async () => {
     try {
       const q = query(collection(db, "asistencias"), orderBy("numero", "asc"));
@@ -31,7 +31,7 @@ export function useAsistencias() {
       setLoading(false);
     }
   };
-  */
+  
   useEffect(() => {
     const q = query(collection(db, "asistencias"), orderBy("numero", "asc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -107,5 +107,5 @@ export function useAsistencias() {
     }
   };
 
-  return { datosAsistencia, loading, agregarAsistencia, actualizarAsistencia, borrarAsistencia };
+  return { datosAsistencia, loading, fetchAsistencias, agregarAsistencia, actualizarAsistencia, borrarAsistencia };
 }

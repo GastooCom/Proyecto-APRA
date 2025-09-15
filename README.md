@@ -69,3 +69,6 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 ![alt text]({055A23C3-7073-454A-BBA5-EE543529442F}.png)
 - **Registrarse:**
 ![alt text](image.png)
+## Capturas de la consola de firebase:
+- **Colección Asistencia:**
+![alt text](image-1.png)
