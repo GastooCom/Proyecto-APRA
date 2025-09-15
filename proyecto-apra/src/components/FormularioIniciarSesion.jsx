@@ -12,7 +12,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 
-// 👇 Importa la función que creamos en services
+
 import { crearUsuario } from "../services/usuarioService";
 
 const FormularioIniciarSesion = () => {
@@ -25,7 +25,7 @@ const FormularioIniciarSesion = () => {
   });
   const [user, setUser] = useState(null);
 
-  // 🔹 Login con Google
+
   const handleGoogleLogin = async () => {
     setError("");
     const provider = new GoogleAuthProvider();
@@ -39,12 +39,12 @@ const FormularioIniciarSesion = () => {
         rol: "google_user",
       };
 
-      // Guardar en Firestore
+
       const exito = await crearUsuario(userData);
       if (!exito) {
-        console.error("No se pudo guardar el usuario en Firestore ❌");
+        console.error("No se pudo guardar el usuario en Firestore");
       } else {
-        console.log("Usuario guardado en Firestore ✅");
+        console.log("Usuario guardado en Firestore");
       }
 
       setUser(userData);
@@ -70,7 +70,7 @@ const FormularioIniciarSesion = () => {
     }
   };
 
-  // 🔹 Login con Email/Password
+
   const handleLogin = async () => {
     setError("");
     try {
@@ -78,7 +78,6 @@ const FormularioIniciarSesion = () => {
         setError("Complete usuario y contraseña");
         return;
       }
-
       const result = await signInWithEmailAndPassword(
         auth,
         credenciales.usuario,
@@ -92,12 +91,11 @@ const FormularioIniciarSesion = () => {
         rol: "email_user",
       };
 
-      // Guardar en Firestore
       const exito = await crearUsuario(userData);
       if (!exito) {
-        console.error("No se pudo guardar el usuario en Firestore ❌");
+        console.error("No se pudo guardar el usuario en Firestore");
       } else {
-        console.log("Usuario guardado en Firestore ✅");
+        console.log("Usuario guardado en Firestore");
       }
 
       setUser(userData);
