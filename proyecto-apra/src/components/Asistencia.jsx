@@ -9,7 +9,6 @@ import { db } from "../firebase/firebase";
 import { collection, doc, setDoc, getDocs, addDoc } from "firebase/firestore";
 import { useEffect } from "react"; 
 
-export default function Asistencia() {
   /*
   const [datosAsistencia, setDatosAsistencia] = useState([
     { id: 1, curso: '6to', division: '3era', nombre: 'Gaston Frigo', fecha: '2025-06-15', estado: 'Presente' },
@@ -19,150 +18,77 @@ export default function Asistencia() {
     { id: 5, curso: '6to', division: '3era', nombre: 'Mateo Acunia', fecha: '2025-06-15', estado: 'Presente' },
     ]);
   */
-    const navigate = useNavigate();
-    const { datosAsistencia, actualizarAsistencia, loading, fetchAsistencias, borrarAsistencia } = useAsistencias();
-
-/*
-    useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, "asistencias"));
-      const data = querySnapshot.docs.map((doc) => doc.data());
-      setDatosAsistencia(data);
-    };
-
-    fetchData();
-  }, []);
-*/
-  const [nuevo, setNuevo] = useState({
-    curso: "",
-    division: "",
-    nombre: "",
-    fecha: "",
-    estado: "Presente",
-  });
-
-  const handleChangeNuevo = (campo, valor) => {
-    setNuevo({ ...nuevo, [campo]: valor });
-  };
-
- const handleAdd = async (e) => {
-  e.preventDefault();
-
-  try {
-    const maxNumero =
-      datosAsistencia.length > 0
-        ? Math.max(...datosAsistencia.map((a) => a.numero || 0))
-        : 0;
-
-    const numero = maxNumero + 1;
-
-    await addDoc(collection(db, "asistencias"), {
-      ...nuevo,
-      numero,
-    });
-
-    alert("Asistencia agregada ✅");
-
-    setNuevo({
-      curso: "",
-      division: "",
-      nombre: "",
-      fecha: "",
-      estado: "Presente",
-    });
-
-    fetchAsistencias();
-  } catch (error) {
-    console.error("Error al agregar asistencia:", error);
-  }
-};
+    export default function Asistencia() {
+  const navigate = useNavigate();
+  const {
+    datosAsistencia,
+    actualizarAsistencia,
+    borrarAsistencia,
+    loading,
+  } = useAsistencias();
 
   const obtenerClaseEstado = (estado) => {
     switch (estado?.toLowerCase()) {
-      case 'presente':
-        return 'estado-presente';
-      case 'ausente':
-        return 'estado-ausente';
-      case 'tarde':
-        return 'estado-tarde';
+      case "presente":
+        return "estado-presente";
+      case "ausente":
+        return "estado-ausente";
+      case "tarde":
+        return "estado-tarde";
       default:
-        return '';
+        return "";
     }
   };
 
   if (loading) return <p>Cargando asistencias...</p>;
-  /*
-  const manejarCambio = async (id, campo, valor) => {
-    const nuevosDatos = datosAsistencia.map((registro) =>
-      registro.id === id ? { ...registro, [campo]: valor } : registro
-    );
-    setDatosAsistencia(nuevosDatos);
 
-    const registro = nuevosDatos.find((r) => r.id === id);
-    await setDoc(doc(db, "asistencias", id.toString()), registro);
-  };
-  */
   return (
-      <div className="contenedor-asistencia">
-         
-        <button className="boton-volver" onClick={() => navigate("/")}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-               fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M19 12H5"></path>
-            <path d="M12 19l-7-7 7-7"></path>
-          </svg>
-        </button>
-        
-        <h1 className="titulo-asistencia">Asistencia de Estudiantes</h1>
-
-      <form onSubmit={handleAdd} className="form-nueva-asistencia">
-        <input
-          type="text"
-          placeholder="Curso"
-          value={nuevo.curso}
-          onChange={(e) => handleChangeNuevo("curso", e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="División"
-          value={nuevo.division}
-          onChange={(e) => handleChangeNuevo("division", e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Nombre y Apellido"
-          value={nuevo.nombre}
-          onChange={(e) => handleChangeNuevo("nombre", e.target.value)}
-        />
-        <input
-          type="date"
-          value={nuevo.fecha}
-          onChange={(e) => handleChangeNuevo("fecha", e.target.value)}
-        />
-        <select
-          value={nuevo.estado}
-          onChange={(e) => handleChangeNuevo("estado", e.target.value)}
+    <div className="contenedor-asistencia">
+      {/* Botón volver */}
+      <button className="boton-volver" onClick={() => navigate("/")}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <option value="Presente">Presente</option>
-          <option value="Ausente">Ausente</option>
-          <option value="Tarde">Tarde</option>
-        </select>
-        <button type="submit">Agregar</button>
-      </form>
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+      </button>
 
+      <h1 className="titulo-asistencia">Asistencia de Estudiantes</h1>
+
+      {/* Botón para ir a AltaAsistencia */}
+      <div className="acciones-superiores">
+        <button
+          className="boton-nueva-asistencia"
+          onClick={() => navigate("/alta-asistencia")}
+        >
+          + Nueva Asistencia
+        </button>
+      </div>
+
+      {/* Tabla de asistencias */}
       <div className="tabla-asistencia">
         <div className="fila encabezado">
-          <div className="celda">ID</div>
+          <div className="celda">#</div>
           <div className="celda">Curso</div>
           <div className="celda">División</div>
           <div className="celda">Nombre y Apellido</div>
           <div className="celda">Fecha</div>
-          <div className="celda">Asistencia</div>
+          <div className="celda">Estado</div>
         </div>
 
         {datosAsistencia.map((registro) => (
           <div className="fila" key={registro.id}>
             <div className="celda">{registro.numero}</div>
+
             <div className="celda">
               <input
                 type="text"
@@ -172,6 +98,7 @@ export default function Asistencia() {
                 }
               />
             </div>
+
             <div className="celda">
               <input
                 type="text"
@@ -181,6 +108,7 @@ export default function Asistencia() {
                 }
               />
             </div>
+
             <div className="celda">
               <input
                 type="text"
@@ -190,6 +118,7 @@ export default function Asistencia() {
                 }
               />
             </div>
+
             <div className="celda">
               <input
                 type="date"
@@ -199,6 +128,7 @@ export default function Asistencia() {
                 }
               />
             </div>
+
             <div className="celda">
               <select
                 value={registro.estado}
@@ -212,6 +142,7 @@ export default function Asistencia() {
                 <option value="Tarde">Tarde</option>
               </select>
             </div>
+
             <div className="celda">
               <button
                 onClick={() => borrarAsistencia(registro.id)}
@@ -223,7 +154,8 @@ export default function Asistencia() {
                   borderRadius: "6px",
                   cursor: "pointer",
                 }}
-              >Borrar
+              >
+                Borrar
               </button>
             </div>
           </div>

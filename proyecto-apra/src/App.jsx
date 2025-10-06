@@ -3,6 +3,7 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import PáginaInicio from './components/PáginaInicio';
 import Asistencia from './components/Asistencia';
+import AltaAsistencia from './hooks/AltaAsistencia';
 import FormularioRegistrarse from './components/FormularioRegistrarse';
 import FormularioIniciarSesion from './components/FormularioIniciarSesion';
 import Notificaciones from './components/Notificaciones';
@@ -45,6 +46,7 @@ function App() {
       <Routes>
         <Route path="/" element={<PáginaInicio />} />
         <Route path="/asistencia" element={<Asistencia />} />
+        <Route path="/alta-asistencia" element={<AltaAsistencia />} />
         <Route path="/registrarse" element={<FormularioRegistrarse />} />
         <Route path="/iniciar-sesion" element={<FormularioIniciarSesion />} />
         <Route path="/permisosnoti" element={<Notificaciones />} />
