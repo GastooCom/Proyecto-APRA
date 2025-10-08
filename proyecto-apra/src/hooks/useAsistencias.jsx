@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../firebase/firebase";
-import { collection, doc, getDocs, onSnapshot, setDoc, query, orderBy, writeBatch, deleteDoc } from "firebase/firestore";
+import { collection, doc, getDocs, onSnapshot, setDoc, query, orderBy, writeBatch, deleteDoc, updateDoc } from "firebase/firestore";
 
 export function useAsistencias() {
 /*
@@ -67,19 +67,19 @@ export function useAsistencias() {
     }
   };
 
-  const actualizarAsistencia = async (id, campo, valor) => {
-    const registroActualizado = datosAsistencia.find((r) => r.id === id);
+  const actualizarAsistencia = async (id, nuevosDatos) => {
+  try {
+    const ref = doc(db, "asistencias", id);
+    await updateDoc(ref, nuevosDatos);
+    // Refresca el estado local
+    setDatosAsistencia((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, ...nuevosDatos } : a))
+    );
+  } catch (error) {
+    console.error("Error al actualizar asistencia:", error);
+  }
+};
 
-    if (!registroActualizado) return;
-
-    const nuevosDatos = { ...registroActualizado, [campo]: valor };
-
-    try {
-      await setDoc(doc(db, "asistencias", id.toString()), nuevosDatos);
-    } catch (error) {
-      console.error("Error al actualizar asistencia:", error);
-    }
-  };
 
   const reordenarNumeros = async () => {
     try {

@@ -5,6 +5,7 @@ import PáginaInicio from './components/PáginaInicio';
 import Asistencia from './components/Asistencia';
 import AltaAsistencia from './hooks/AltaAsistencia';
 import BajaAsistencia from './hooks/BajaAsistencia';
+import ModificarAsistencia from './hooks/ModificarAsistencia';
 import FormularioRegistrarse from './components/FormularioRegistrarse';
 import FormularioIniciarSesion from './components/FormularioIniciarSesion';
 import Notificaciones from './components/Notificaciones';
@@ -49,6 +50,7 @@ function App() {
         <Route path="/asistencia" element={<Asistencia />} />
         <Route path="/alta-asistencia" element={<AltaAsistencia />} />
         <Route path="/baja-asistencia" element={<BajaAsistencia />} />
+        <Route path="/modificar-asistencia" element={<ModificarAsistencia />} />
         <Route path="/registrarse" element={<FormularioRegistrarse />} />
         <Route path="/iniciar-sesion" element={<FormularioIniciarSesion />} />
         <Route path="/permisosnoti" element={<Notificaciones />} />

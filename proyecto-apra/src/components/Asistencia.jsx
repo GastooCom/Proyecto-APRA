@@ -78,6 +78,13 @@ import { useEffect } from "react";
         >
           Eliminar Asistencia
         </button>
+
+        <button
+          className="boton-modificar-asistencia"
+          onClick={() => navigate("/modificar-asistencia")}
+        >
+         Modificar Asistencia
+        </button>
       </div>
 
       {/* Tabla de asistencias */}

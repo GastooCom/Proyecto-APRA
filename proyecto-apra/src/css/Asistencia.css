@@ -124,6 +124,47 @@
   box-sizing: border-box;
 }
 
+/*ModificarAsistencia*/
+
+.formulario-edicion {
+  background-color: #f8f9fa;
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.campo {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.campo label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.campo input,
+.campo select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.boton-guardar {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-guardar:hover {
+  background-color: #218838;
+}
 
 
 /*
