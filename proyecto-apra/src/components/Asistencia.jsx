@@ -70,7 +70,13 @@ import { useEffect } from "react";
           className="boton-nueva-asistencia"
           onClick={() => navigate("/alta-asistencia")}
         >
-          + Nueva Asistencia
+          Nueva Asistencia
+        </button>
+        <button
+          className="boton-baja-asistencia"
+          onClick={() => navigate("/baja-asistencia")}
+        >
+          Eliminar Asistencia
         </button>
       </div>
 
@@ -141,22 +147,6 @@ import { useEffect } from "react";
                 <option value="Ausente">Ausente</option>
                 <option value="Tarde">Tarde</option>
               </select>
-            </div>
-
-            <div className="celda">
-              <button
-                onClick={() => borrarAsistencia(registro.id)}
-                style={{
-                  background: "red",
-                  color: "white",
-                  border: "none",
-                  padding: "5px 10px",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                }}
-              >
-                Borrar
-              </button>
             </div>
           </div>
         ))}
