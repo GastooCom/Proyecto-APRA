@@ -27,6 +27,7 @@ import { useEffect } from "react";
     loading,
   } = useAsistencias();
 
+  
   const obtenerClaseEstado = (estado) => {
     switch (estado?.toLowerCase()) {
       case "presente":

@@ -166,6 +166,60 @@
   background-color: #218838;
 }
 
+.acciones-superiores {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.boton-nueva-asistencia {
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  background-color: #6366f1;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-nueva-asistencia:hover {
+  background-color: #0056b3;
+}
+
+.boton-baja-asistencia {
+  background-color: #dc3545;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-baja-asistencia:hover {
+  background-color: #b02a37;
+}
+
+.boton-modificar-asistencia {
+  background-color: #debd36;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-modificar-asistencia:hover {
+  background-color: #ffd42a;
+}
 
 /*
 #root {
