@@ -124,7 +124,7 @@
   box-sizing: border-box;
 }
 
-/*Agregar*/
+/*Botones*/
 
 .acciones-superiores {
   display: flex;
@@ -148,6 +148,78 @@
 .boton-nueva-asistencia:hover {
   background-color: #0056b3;
 }
+
+.boton-modificar-asistencia {
+  background-color: #debd36;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-modificar-asistencia:hover {
+  background-color: #ffd42a;
+}
+
+.boton-baja-asistencia {
+  background-color: #dc3545;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-baja-asistencia:hover {
+  background-color: #b02a37;
+}
+
+/*Registrar*/
+
+.form-nueva-asistencia {
+  margin-top: 50px;
+  display: flex;
+  gap: 16px;
+}
+
+.form-nueva-asistencia input,
+.form-nueva-asistencia select {
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-nueva-asistencia input:focus,
+.form-nueva-asistencia select:focus {
+  border-color: #007bff;
+}
+
+.form-nueva-asistencia button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-nueva-asistencia button:hover {
+  background-color: #218838;
+}
+
 
 /*Modificar*/
 
@@ -207,22 +279,6 @@
     text-transform: uppercase;
     font-size: 0.9em;
     letter-spacing: 0.5px;
-}
-
-.boton-modificar-asistencia {
-  background-color: #debd36;
-  margin-top: 1rem;
-  padding: 0.6rem 1.4rem;
-  font-weight: 600;
-  border: none;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.boton-modificar-asistencia:hover {
-  background-color: #ffd42a;
 }
 
 /*Eliminar*/
