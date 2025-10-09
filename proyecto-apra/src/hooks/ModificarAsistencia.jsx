@@ -66,10 +66,47 @@ export default function ModificarAsistencia() {
 
       <h1 className="titulo-asistencia">Modificar Asistencia</h1>
 
-{/* Formulario de edición */}
+      {/* Listado de asistencias */}
+      <div className="tabla-asistencia">
+        <div className="fila-modificar encabezado">
+          <div className="celda">#</div>
+          <div className="celda">Curso</div>
+          <div className="celda">División</div>
+          <div className="celda">Nombre</div>
+          <div className="celda">Fecha</div>
+          <div className="celda">Estado</div>
+          <div className="celda">Acción</div>
+        </div>
+
+        {datosAsistencia.map((registro) => (
+          <div className="fila-modificar" key={registro.id}>
+            <div className="celda">{registro.numero}</div>
+            <div className="celda">{registro.curso}</div>
+            <div className="celda">{registro.division}</div>
+            <div className="celda">{registro.nombre}</div>
+            <div className="celda">{registro.fecha}</div>
+            <div className="celda">{registro.estado}</div>
+            <div className="celda">
+              <button
+                onClick={() => handleSelect(registro)}
+                style={{
+                  background: "#ffc107",
+                  color: "black",
+                  border: "none",
+                  padding: "6px 12px",
+                  borderRadius: "6px",
+                  cursor: "pointer",
+                }}
+              >
+                Editar
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {/* Formulario de edición */}
       {asistenciaSeleccionada && (
         <form onSubmit={handleUpdate} className="formulario-edicion">
-          <h2>Editar Asistencia</h2>
           <div className="campo">
             <label>Curso:</label>
             <input
@@ -126,49 +163,11 @@ export default function ModificarAsistencia() {
           </div>
 
           <button type="submit" className="boton-guardar">
-            💾 Guardar Cambios
+            Guardar Cambios
           </button>
         </form>
       )}
 
-      {/* Listado de asistencias */}
-      <div className="tabla-asistencia">
-        <div className="fila-modificar encabezado">
-          <div className="celda">#</div>
-          <div className="celda">Curso</div>
-          <div className="celda">División</div>
-          <div className="celda">Nombre</div>
-          <div className="celda">Fecha</div>
-          <div className="celda">Estado</div>
-          <div className="celda">Acción</div>
-        </div>
-
-        {datosAsistencia.map((registro) => (
-          <div className="fila-modificar" key={registro.id}>
-            <div className="celda">{registro.numero}</div>
-            <div className="celda">{registro.curso}</div>
-            <div className="celda">{registro.division}</div>
-            <div className="celda">{registro.nombre}</div>
-            <div className="celda">{registro.fecha}</div>
-            <div className="celda">{registro.estado}</div>
-            <div className="celda">
-              <button
-                onClick={() => handleSelect(registro)}
-                style={{
-                  background: "#ffc107",
-                  color: "black",
-                  border: "none",
-                  padding: "6px 12px",
-                  borderRadius: "6px",
-                  cursor: "pointer",
-                }}
-              >
-                Editar
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

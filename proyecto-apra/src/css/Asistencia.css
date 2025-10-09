@@ -224,10 +224,18 @@
 /*Modificar*/
 
 .formulario-edicion {
+  display: flex;
   background-color: #f8f9fa;
   margin-top: 30px;
   padding: 20px;
   border-radius: 10px;
+}
+
+/* Para agregar separación dentro de los inputs */
+.formulario-edicion .campo input {
+  width: 90%;   
+  padding: 4px;
+  box-sizing: border-box;
 }
 
 .campo {
@@ -250,6 +258,7 @@
 
 .boton-guardar {
   background-color: #28a745;
+  height: 50px;
   color: white;
   border: none;
   padding: 10px 16px;
@@ -257,6 +266,8 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-left: 20px;
+  margin-top: 10px;
 }
 
 .boton-guardar:hover {
