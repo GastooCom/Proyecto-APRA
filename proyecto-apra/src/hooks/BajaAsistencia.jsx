@@ -22,6 +22,23 @@ export default function BajaAsistencia() {
     }
   };
 
+  const{
+    actualizarAsistencia
+  } = useAsistencias();
+
+   const obtenerClaseEstado = (estado) => {
+    switch (estado?.toLowerCase()) {
+      case "presente":
+        return "estado-presente";
+      case "ausente":
+        return "estado-ausente";
+      case "tarde":
+        return "estado-tarde";
+      default:
+        return "";
+    }
+  };
+
   if (loading) return <p>Cargando asistencias...</p>;
 
   return (
@@ -48,7 +65,7 @@ export default function BajaAsistencia() {
 
       {/* Tabla simple con botones de eliminar */}
       <div className="tabla-asistencia">
-        <div className="fila encabezado">
+        <div className="fila-eliminar encabezado">
           <div className="celda">#</div>
           <div className="celda">Curso</div>
           <div className="celda">División</div>
@@ -58,14 +75,63 @@ export default function BajaAsistencia() {
           <div className="celda">Acción</div>
         </div>
 
-        {datosAsistencia.map((registro) => (
-          <div className="fila" key={registro.id}>
+         {datosAsistencia.map((registro) => (
+          <div className="fila-eliminar" key={registro.id}>
             <div className="celda">{registro.numero}</div>
-            <div className="celda">{registro.curso}</div>
-            <div className="celda">{registro.division}</div>
-            <div className="celda">{registro.nombre}</div>
-            <div className="celda">{registro.fecha}</div>
-            <div className="celda">{registro.estado}</div>
+
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.curso}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "curso", e.target.value)
+                }
+              />
+            </div>
+
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.division}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "division", e.target.value)
+                }
+              />
+            </div>
+
+            <div className="celda">
+              <input
+                type="text"
+                value={registro.nombre}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "nombre", e.target.value)
+                }
+              />
+            </div>
+
+            <div className="celda">
+              <input
+                type="date"
+                value={registro.fecha}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "fecha", e.target.value)
+                }
+              />
+            </div>
+
+            <div className="celda">
+              <select
+                value={registro.estado}
+                onChange={(e) =>
+                  actualizarAsistencia(registro.id, "estado", e.target.value)
+                }
+                className={`estado ${obtenerClaseEstado(registro.estado)}`}
+              >
+                <option value="Presente">Presente</option>
+                <option value="Ausente">Ausente</option>
+                <option value="Tarde">Tarde</option>
+              </select>
+            </div>
             <div className="celda">
               <button
                 onClick={() => handleDelete(registro.id, registro.nombre)}
