@@ -133,7 +133,7 @@ export default function ModificarAsistencia() {
 
       {/* Listado de asistencias */}
       <div className="tabla-asistencia">
-        <div className="fila encabezado">
+        <div className="fila-modificar encabezado">
           <div className="celda">#</div>
           <div className="celda">Curso</div>
           <div className="celda">División</div>
@@ -144,7 +144,7 @@ export default function ModificarAsistencia() {
         </div>
 
         {datosAsistencia.map((registro) => (
-          <div className="fila" key={registro.id}>
+          <div className="fila-modificar" key={registro.id}>
             <div className="celda">{registro.numero}</div>
             <div className="celda">{registro.curso}</div>
             <div className="celda">{registro.division}</div>
