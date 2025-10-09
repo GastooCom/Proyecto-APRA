@@ -99,63 +99,14 @@ import { useEffect } from "react";
           <div className="celda">Estado</div>
         </div>
 
-        {datosAsistencia.map((registro) => (
+       {datosAsistencia.map((registro) => (
           <div className="fila" key={registro.id}>
             <div className="celda">{registro.numero}</div>
-
-            <div className="celda">
-              <input
-                type="text"
-                value={registro.curso}
-                onChange={(e) =>
-                  actualizarAsistencia(registro.id, "curso", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="celda">
-              <input
-                type="text"
-                value={registro.division}
-                onChange={(e) =>
-                  actualizarAsistencia(registro.id, "division", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="celda">
-              <input
-                type="text"
-                value={registro.nombre}
-                onChange={(e) =>
-                  actualizarAsistencia(registro.id, "nombre", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="celda">
-              <input
-                type="date"
-                value={registro.fecha}
-                onChange={(e) =>
-                  actualizarAsistencia(registro.id, "fecha", e.target.value)
-                }
-              />
-            </div>
-
-            <div className="celda">
-              <select
-                value={registro.estado}
-                onChange={(e) =>
-                  actualizarAsistencia(registro.id, "estado", e.target.value)
-                }
-                className={`estado ${obtenerClaseEstado(registro.estado)}`}
-              >
-                <option value="Presente">Presente</option>
-                <option value="Ausente">Ausente</option>
-                <option value="Tarde">Tarde</option>
-              </select>
-            </div>
+            <div className="celda">{registro.curso}</div>
+            <div className="celda">{registro.division}</div>
+            <div className="celda">{registro.nombre}</div>
+            <div className="celda">{registro.fecha}</div>
+            <div className="celda">{registro.estado}</div>
           </div>
         ))}
       </div>
