@@ -132,21 +132,35 @@ const AsistenciaRA = () => {
           <div className="eyes-anim" aria-hidden="true" ref={eyesRef}>
             <div className="eye">
               <svg viewBox="0 0 200 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-                <path d="M10,50 Q100,5 190,50 Q100,95 10,50 Z" fill="none" stroke="#0f0f14" strokeWidth="8" strokeLinecap="round" />
-                <path d="M30,50 Q100,20 170,50 Q100,80 30,50 Z" fill="none" stroke="#0f0f14" strokeWidth="6" strokeLinecap="round" />
+                <defs>
+                  <radialGradient id="irisGrad" cx="40%" cy="40%" r="70%">
+                    <stop offset="0%" stopColor="#2a1948" />
+                    <stop offset="55%" stopColor="#4b2a88" />
+                    <stop offset="100%" stopColor="#0b0b12" />
+                  </radialGradient>
+                </defs>
+                <path d="M10,50 Q100,5 190,50 Q100,95 10,50 Z" fill="none" stroke="#7b3fe4" strokeOpacity="0.9" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30,50 Q100,20 170,50 Q100,80 30,50 Z" fill="none" stroke="#a889ff" strokeOpacity="0.8" strokeWidth="6" strokeLinecap="round" />
                 <g className="pupil-group" transform="translate(100,50)">
-                  <circle className="pupil-circle" r="18" fill="#0b0b0f" />
-                  <path d="M-6,-6 a12,12 0 1,0 12,-12" fill="none" stroke="#1f2937" strokeWidth="5" strokeLinecap="round" />
+                  <circle className="pupil-circle" r="18" fill="url(#irisGrad)" />
+                  <path d="M-6,-6 a12,12 0 1,0 12,-12" fill="none" stroke="#cbb6ff" strokeOpacity="0.7" strokeWidth="5" strokeLinecap="round" />
                 </g>
               </svg>
             </div>
             <div className="eye">
               <svg viewBox="0 0 200 100" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-                <path d="M10,50 Q100,5 190,50 Q100,95 10,50 Z" fill="none" stroke="#0f0f14" strokeWidth="8" strokeLinecap="round" />
-                <path d="M30,50 Q100,20 170,50 Q100,80 30,50 Z" fill="none" stroke="#0f0f14" strokeWidth="6" strokeLinecap="round" />
+                <defs>
+                  <radialGradient id="irisGrad2" cx="40%" cy="40%" r="70%">
+                    <stop offset="0%" stopColor="#2a1948" />
+                    <stop offset="55%" stopColor="#4b2a88" />
+                    <stop offset="100%" stopColor="#0b0b12" />
+                  </radialGradient>
+                </defs>
+                <path d="M10,50 Q100,5 190,50 Q100,95 10,50 Z" fill="none" stroke="#7b3fe4" strokeOpacity="0.9" strokeWidth="8" strokeLinecap="round" />
+                <path d="M30,50 Q100,20 170,50 Q100,80 30,50 Z" fill="none" stroke="#a889ff" strokeOpacity="0.8" strokeWidth="6" strokeLinecap="round" />
                 <g className="pupil-group" transform="translate(100,50)">
-                  <circle className="pupil-circle" r="18" fill="#0b0b0f" />
-                  <path d="M-6,-6 a12,12 0 1,0 12,-12" fill="none" stroke="#1f2937" strokeWidth="5" strokeLinecap="round" />
+                  <circle className="pupil-circle" r="18" fill="url(#irisGrad2)" />
+                  <path d="M-6,-6 a12,12 0 1,0 12,-12" fill="none" stroke="#cbb6ff" strokeOpacity="0.7" strokeWidth="5" strokeLinecap="round" />
                 </g>
               </svg>
             </div>
