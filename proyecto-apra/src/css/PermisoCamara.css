@@ -1,10 +1,10 @@
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-/*
+
+
 body {
     font-family: 'Segoe UI', sans-serif;
     background: linear-gradient(135deg, #0d0430, #041680);
@@ -15,7 +15,8 @@ body {
     align-items: center;
     transition: background 0.3s ease;
 }
-*/
+
+
 .contenedor-permisocamara {
     display: flex;
     flex-direction: column;
@@ -23,17 +24,16 @@ body {
     justify-content: center;
     text-align: center;
     padding: 20px;
-    height: 100%;
+    height: 100vh; 
     animation: fadeIn 1s ease-out; 
-    background:linear-gradient(to bottom, black, rgb(2, 2, 70));
+    background: linear-gradient(to bottom, black, rgb(2, 2, 70));
 }
 
 .titulo {
-    margin-top: 100px;
+    margin-top: 50px;
     font-size: 2.5rem;
     margin-bottom: 20px;
     color: #c1ffe7;
-    /*text-shadow: 0 0 5px #00ffe7;*/
     animation: slideIn 1s ease-out; 
 }
 
@@ -47,6 +47,10 @@ body {
     transform: scale(1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeInBox 1.5s ease-out; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
 }
 
 .box:hover {
@@ -61,14 +65,27 @@ body {
     animation: bounce 1s infinite; 
 }
 
-.camara{
+
+.camara {
     display: flex;
-    margin-left: 225px;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%;
+    margin-bottom: 20px;
 }
 
-.text-camara{
+.camara video {
+    display: block;
+    border-radius: 16px;
+    border: 2px solid #a45aff;
+    box-shadow: 0 0 20px rgba(164, 90, 255, 0.3);
+    max-width: 100%;
+}
+
+
+.text-camara {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin-bottom: 20px;
     animation: fadeInText 1s ease-out; 
 }
@@ -123,21 +140,20 @@ body {
     transform: scale(1.05);
 }
 
-.footer{
-    margin-top: 192px;
+.footer {
+    margin-top: 100px;
     background-color: #000000; 
     color: white;
     text-align: center;
     padding: 20px;
     font-size: 0.8rem;
-    width: 103%;
+    width: 100%;
     position: relative;
     bottom: 0;
     animation: fadeInFooter 1s ease-out;
 }
 
 
-/*
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
@@ -167,4 +183,4 @@ body {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
-*/
+
