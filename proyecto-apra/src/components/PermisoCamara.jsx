@@ -6,45 +6,52 @@ import { useNavigate } from "react-router-dom";
 const CamaraPermiso = () => {
   const navigate = useNavigate();
   const videoRef = useRef(null);
-
+  const [stream, setStream] = useState(null);
   const [noAskAgain, setNoAskAgain] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [isCameraActive, setIsCameraActive] = useState(false);
-  const [stream, setStream] = useState(null);
+  const [isCameraReady, setIsCameraReady] = useState(false);
 
   // =====================================
-  // PEDIR PERMISO Y MOSTRAR LA CÁMARA
+  // INICIAR CÁMARA AUTOMÁTICAMENTE
   // =====================================
-  const handleAllow = async () => {
-    try {
-      const userStream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = userStream;
+  useEffect(() => {
+    let currentStream;
+
+    const startCamera = async () => {
+      try {
+        const userStream = await navigator.mediaDevices.getUserMedia({ video: true });
+        if (videoRef.current) {
+          videoRef.current.srcObject = userStream;
+        }
+        currentStream = userStream;
         setStream(userStream);
-        setIsCameraActive(true);
+        setIsCameraReady(true);
         setErrorMessage(null);
+      } catch (error) {
+        console.error("Error al acceder a la cámara:", error);
+        setErrorMessage(
+          "No se pudo acceder a la cámara. Revisá los permisos del navegador."
+        );
       }
-    } catch (error) {
-      console.error("Error al acceder a la cámara:", error);
-      setErrorMessage(
-        "No se pudo acceder a la cámara. Revisa los permisos del navegador."
-      );
-    }
-  };
+    };
+
+    startCamera();
+
+    // 🔴 Detener cámara al salir del componente
+    return () => {
+      if (currentStream) {
+        currentStream.getTracks().forEach((track) => track.stop());
+      }
+    };
+  }, []);
 
   // =====================================
-  // FINALIZAR STREAM Y NAVEGAR
+  // NAVEGAR AL RECONOCIMIENTO FACIAL
   // =====================================
   const handleContinuar = () => {
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-    }
     navigate("/reconocimiento");
   };
 
-  // =====================================
-  // SI EL USUARIO RECHAZA
-  // =====================================
   const handleReject = () => {
     if (noAskAgain) {
       localStorage.setItem("skipCameraPermission", "true");
@@ -53,7 +60,7 @@ const CamaraPermiso = () => {
   };
 
   // =====================================
-  // SALTAR SI YA DIJO "NO VOLVER A PREGUNTAR"
+  // SALTAR SI EL USUARIO YA DIJO “NO PREGUNTAR”
   // =====================================
   useEffect(() => {
     const skip = localStorage.getItem("skipCameraPermission");
@@ -82,14 +89,12 @@ const CamaraPermiso = () => {
       <h1 className="titulo">PERMISO DE CÁMARA</h1>
 
       <div className="box">
-        {!isCameraActive && (
-          <div className="camara">
+        <div className="camara">
+          {!isCameraReady && (
             <img src={miImagen} alt="camara" width={90} height={90} />
-          </div>
-        )}
+          )}
 
-      
-        {isCameraActive && (
+          {/* Vista de la cámara permanente */}
           <video
             ref={videoRef}
             autoPlay
@@ -98,20 +103,19 @@ const CamaraPermiso = () => {
             width="320"
             height="240"
             style={{
-              borderRadius: "10px",
-              marginTop: "15px",
+              display: isCameraReady ? "block" : "none",
+              borderRadius: "12px",
               border: "2px solid #a45aff",
-              boxShadow: "0 0 10px rgba(164, 90, 255, 0.5)",
+              marginTop: "15px",
+              boxShadow: "0 0 15px rgba(164, 90, 255, 0.4)",
             }}
           />
-        )}
+        </div>
 
         <p className="text-camara">
-          Para continuar, necesitamos el acceso a la cámara del dispositivo.
-          <br />
-          {isCameraActive
-            ? "La cámara está activa. Si ves la imagen, presiona CONTINUAR."
-            : "Haz clic en PERMITIR para activar la cámara."}
+          {isCameraReady
+            ? "La cámara está activa todo el tiempo mientras permanezcas en esta pantalla."
+            : "Esperando permiso para acceder a la cámara..."}
         </p>
 
         <div className="checkbox-container">
@@ -128,15 +132,13 @@ const CamaraPermiso = () => {
           <button className="reject" onClick={handleReject}>
             RECHAZAR
           </button>
-          {!isCameraActive ? (
-            <button className="allow" onClick={handleAllow}>
-              PERMITIR
-            </button>
-          ) : (
-            <button className="allow" onClick={handleContinuar}>
-              CONTINUAR
-            </button>
-          )}
+          <button
+            className="allow"
+            onClick={handleContinuar}
+            disabled={!isCameraReady}
+          >
+            CONTINUAR
+          </button>
         </div>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
