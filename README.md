@@ -74,3 +74,31 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 ![alt text](image-1.png)
 - **Coleccion Usuario:**
 ![alt text](image-2.png)
+
+## Instrucciones para clonar y ejecutar localmente
+
+### Requisitos previos
+
+Antes de comenzar, asegurate de tener instalado:
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
+- [Git](https://git-scm.com/)
+
+### Clonar el repositorio
+
+**Abrí la terminal y ejecutá:**
+
+```bash
+git clone https://github.com/tuusuario/Proyecto-APRA.git
+```
+
+**Luego ingresá a la carpeta del proyecto:**
+- cd Proyecto-APRA
+
+**Instalar dependencias**
+- npm install
+
+**Ejecutar el proyecto**
+- npm start
+
+**Esto abrirá la app en tu navegador en:**
+- http://localhost:3000
