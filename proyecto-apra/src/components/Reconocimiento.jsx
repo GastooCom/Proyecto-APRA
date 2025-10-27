@@ -1,18 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import { useNavigate } from "react-router-dom";
+import { FaRegSquare, FaVideo, FaUserAlt } from "react-icons/fa";
+import { BsInfoCircle } from "react-icons/bs";
 
 function Reconocimiento() {
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const captureCanvasRef = useRef(null);
+  const snapshotCanvasRef = useRef(null);
+  const rafIdRef = useRef(null);
 
   const [stream, setStream] = useState(null);
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [loading, setLoading] = useState(true);
   const [facesCount, setFacesCount] = useState(0);
   const [error, setError] = useState("");
+  const [frozen, setFrozen] = useState(false);
+  const [goodCount, setGoodCount] = useState(0);
+  const [badCount, setBadCount] = useState(0);
 
   // Cargar modelos desde CDN para evitar tener archivos locales
   useEffect(() => {
@@ -56,6 +63,7 @@ function Reconocimiento() {
     startCam();
     return () => {
       if (currentStream) currentStream.getTracks().forEach(t => t.stop());
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
     };
   }, []);
 
@@ -64,12 +72,26 @@ function Reconocimiento() {
     const video = videoRef.current;
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
+    // Tamaño real visible del video en CSS px
+    const w = video.clientWidth || video.videoWidth;
+    const h = video.clientHeight || video.videoHeight;
+    // Canvas en espacio CSS px (sin escalar por DPR) para que faceapi.draw alinee
+    canvas.width = Math.round(w);
+    canvas.height = Math.round(h);
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    const snapshotCanvas = snapshotCanvasRef.current;
+    if (snapshotCanvas) {
+      snapshotCanvas.width = Math.round(w);
+      snapshotCanvas.height = Math.round(h);
+      snapshotCanvas.style.width = '100%';
+      snapshotCanvas.style.height = '100%';
+    }
     const captureCanvas = captureCanvasRef.current;
     if (captureCanvas) {
-      captureCanvas.width = video.videoWidth;
-      captureCanvas.height = video.videoHeight;
+      // Captura a resolución del video para mejor precisión
+      captureCanvas.width = video.videoWidth || w;
+      captureCanvas.height = video.videoHeight || h;
     }
   };
 
@@ -81,64 +103,117 @@ function Reconocimiento() {
 
   const takeAndAnalyzePhoto = async () => {
     if (!modelsLoaded) return;
+    // Si ya está congelado, preparar para tomar una nueva foto
+    if (frozen) {
+      setFrozen(false);
+      clearOverlay();
+      try { await videoRef.current?.play(); } catch {}
+      return;
+    }
     const video = videoRef.current;
     const overlay = canvasRef.current;
     const captureCanvas = captureCanvasRef.current;
+    const snapshotCanvas = snapshotCanvasRef.current;
     if (!video || !overlay || !captureCanvas) return;
 
     // capturar frame actual del video
     const cctx = captureCanvas.getContext("2d");
     cctx.drawImage(video, 0, 0, captureCanvas.width, captureCanvas.height);
+    // dibujar esa captura en el canvas visible de snapshot para "congelar" la imagen
+    if (snapshotCanvas) {
+      const sctx = snapshotCanvas.getContext('2d');
+      // Ajustar a tamaño del overlay (espacio CSS)
+      sctx.clearRect(0, 0, snapshotCanvas.width, snapshotCanvas.height);
+      // Usar drawImage con escala a tamaño CSS
+      sctx.drawImage(captureCanvas, 0, 0, snapshotCanvas.width, snapshotCanvas.height);
+    }
 
     // limpiar overlay previo
     const octx = overlay.getContext("2d");
+    // Usar transform identidad para dibujar en espacio CSS px
+    octx.setTransform(1, 0, 0, 1, 0, 0);
     octx.clearRect(0, 0, overlay.width, overlay.height);
 
     // detectar rostros en la foto capturada
     const detections = await faceapi
       .detectAllFaces(captureCanvas, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.5 }))
-      .withFaceLandmarks()
-      .withFaceDescriptors();
+      .withFaceLandmarks();
 
     setFacesCount(detections.length);
 
-    // dibujar recuadros
-    const resized = faceapi.resizeResults(detections, {
-      width: overlay.width,
-      height: overlay.height,
+    const resized = faceapi.resizeResults(detections, { width: overlay.width, height: overlay.height });
+    const MIN_SIZE = 80; // px mínimos para considerarla "identificable"
+    const MAX_TILT_DEG = 20; // grados máximos de inclinación del eje de ojos
+    let good = 0, bad = 0;
+    const ctx = overlay.getContext('2d');
+    ctx.lineWidth = 4;
+    resized.forEach(r => {
+      const det = r.detection ?? r;
+      const box = det.box;
+      let isIdentificable = box?.width >= MIN_SIZE && box?.height >= MIN_SIZE && (det.score ?? 0.6) >= 0.6;
+      // Heurística de inclinación usando landmarks de ojos
+      const lm = r.landmarks;
+      if (lm) {
+        const leftEye = lm.getLeftEye();
+        const rightEye = lm.getRightEye();
+        if (leftEye?.[0] && rightEye?.[0]) {
+          const lx = leftEye[0].x, ly = leftEye[0].y;
+          const rx = rightEye[0].x, ry = rightEye[0].y;
+          const angle = Math.abs((Math.atan2(ry - ly, rx - lx) * 180) / Math.PI);
+          const tilt = Math.min(angle, 180 - angle); // 0..90
+          if (tilt > MAX_TILT_DEG) isIdentificable = false;
+        }
+      }
+      if (isIdentificable) {
+        ctx.shadowColor = 'rgba(46, 204, 113, 0.55)';
+        ctx.strokeStyle = '#2ecc71';
+        good += 1;
+      } else {
+        ctx.shadowColor = 'rgba(231, 76, 60, 0.55)';
+        ctx.strokeStyle = '#e74c3c';
+        bad += 1;
+      }
+      ctx.shadowBlur = 10;
+      ctx.strokeRect(box.x, box.y, box.width, box.height);
+      ctx.shadowBlur = 0;
     });
+    setGoodCount(good);
+    setBadCount(bad);
 
-    resized.forEach(d => {
-      const box = d.detection.box;
-      octx.strokeStyle = "#2ecc71"; // verde
-      octx.lineWidth = 3;
-      octx.strokeRect(box.x, box.y, box.width, box.height);
-      octx.fillStyle = "rgba(46, 204, 113, 0.2)";
-      octx.fillRect(box.x, box.y, box.width, box.height);
-    });
+    // Congelar video y mostrar snapshot
+    try { video.pause(); } catch {}
+    setFrozen(true);
+  };
+
+  const stopAnyLoop = () => {
+    if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: 16 }}>
-      <div style={{ width: "100%", maxWidth: 900, position: "relative" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: 28 }}>
+      <div style={{ width: "min(92vw, 1400px)", position: "relative" }}>
+        {/* Flecha de volver mejorada y fija en esquina superior izquierda */}
         <button
           onClick={() => navigate("/")}
-          style={{ position: "absolute", top: -4, left: -4, background: "transparent", border: "none", cursor: "pointer", zIndex: 2 }}
+          style={{ position: "fixed", top: 16, left: 16, width: 44, height: 44, display: "grid", placeItems: "center", background: "#0f0f14", border: "1px solid rgba(138,43,226,0.5)", color: "#fff", borderRadius: 12, cursor: "pointer", zIndex: 10, boxShadow: "0 6px 18px rgba(138,43,226,0.3)" }}
           aria-label="Volver"
+          title="Volver"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a45aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"></path><path d="M12 19l-7-7 7-7"></path></svg>
         </button>
 
-        <div style={{ position: "relative", width: "100%", borderRadius: 12, overflow: "hidden", background: "#111", aspectRatio: "4/3" }}>
+        <div style={{ position: "relative", width: "100%", borderRadius: 20, overflow: "hidden", background: "#0b0b0f", aspectRatio: "16/9", boxShadow: "0 18px 50px rgba(138,43,226,0.32)", border: "1px solid rgba(164,90,255,0.35)" }}>
           <video
             ref={videoRef}
             autoPlay
             playsInline
             muted
             onLoadedMetadata={handleLoadedMetadata}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: loading ? "none" : "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: loading ? "none" : (frozen ? "none" : "block"), filter: "contrast(1.05) saturate(1.05)", zIndex: 0 }}
           />
-          <canvas ref={canvasRef} style={{ position: "absolute", inset: 0 }} />
+          {/* Canvas visible que muestra la foto congelada */}
+          <canvas ref={snapshotCanvasRef} style={{ position: "absolute", inset: 0, zIndex: 1, display: frozen ? 'block' : 'none' }} />
+          <canvas ref={canvasRef} style={{ position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none" }} />
           {/* Canvas invisible donde se captura la foto para analizar */}
           <canvas ref={captureCanvasRef} style={{ display: "none" }} />
 
@@ -149,16 +224,34 @@ function Reconocimiento() {
           )}
         </div>
 
-        <div style={{ display: "flex", gap: 12, justifyContent: "center", alignItems: "center", marginTop: 12 }}>
-          <button onClick={takeAndAnalyzePhoto} disabled={!modelsLoaded || !!error} style={{ background: "#8a2be2", color: "white", border: "none", padding: "10px 14px", borderRadius: 10, cursor: "pointer" }}>
-            Tomar foto
-          </button>
-          <button onClick={clearOverlay} style={{ background: "#2d2d2d", color: "white", border: "none", padding: "10px 14px", borderRadius: 10, cursor: "pointer" }}>
-            Limpiar
-          </button>
-          <div style={{ marginLeft: "auto", display: "flex", gap: 16, alignItems: "center" }}>
-            <span style={{ color: "#2ecc71" }}>Detectados: {facesCount}</span>
-            <span style={{ color: modelsLoaded ? "#2ecc71" : "#e67e22" }}>{modelsLoaded ? "Modelos listos" : "Cargando modelos..."}</span>
+        {/* Barra inferior estilo HUD */}
+        <div style={{ position: 'relative', marginTop: 18 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, background: 'linear-gradient(180deg, rgba(24,21,32,0.85), rgba(24,21,32,0.85))', border: '1px solid rgba(164,90,255,0.35)', borderRadius: 16, padding: '12px 16px', boxShadow: '0 12px 34px rgba(138,43,226,0.35)' }}>
+            {/* Izquierda: botón principal */}
+            <button onClick={takeAndAnalyzePhoto} disabled={!modelsLoaded || !!error} style={{ background: 'linear-gradient(135deg, #8a2be2, #a45aff)', color: 'white', border: 'none', padding: '12px 18px', borderRadius: 999, cursor: 'pointer', fontSize: 16, fontWeight: 700, boxShadow: '0 10px 24px rgba(138,43,226,0.45)' }}>
+              {frozen ? 'Nueva foto' : 'Tomar Asistencia'}
+            </button>
+
+            {/* Centro: botón cámara */}
+            <button onClick={takeAndAnalyzePhoto} disabled={!modelsLoaded || !!error} style={{ width: 56, height: 44, borderRadius: 12, border: '1px solid rgba(164,90,255,0.45)', background: '#1b1530', color: '#c8a6ff', display: 'grid', placeItems: 'center' }}>
+              <FaVideo size={22} />
+            </button>
+
+            {/* Derecha: indicadores */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div title="No identificables" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#e74c3c', fontWeight: 700 }}>
+                <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(231,76,60,0.15)', border: '1px solid rgba(231,76,60,0.6)', display: 'grid', placeItems: 'center' }}>
+                  <BsInfoCircle />
+                </span>
+                <span>{badCount}</span>
+              </div>
+              <div title="Identificables" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#2ecc71', fontWeight: 700 }}>
+                <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(46,204,113,0.12)', border: '1px solid rgba(46,204,113,0.6)', display: 'grid', placeItems: 'center' }}>
+                  <FaUserAlt />
+                </span>
+                <span>{goodCount}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
