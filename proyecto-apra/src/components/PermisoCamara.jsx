@@ -1,48 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import '../css/PermisoCamara.css';
 import miImagen from "../Imagenes/icono-de-camara-violet.png";
 import { useNavigate } from "react-router-dom";
 
 const CamaraPermiso = () => {
     const navigate = useNavigate();
+    const videoRef = useRef(null);
     const [noAskAgain, setNoAskAgain] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [isCameraActive, setIsCameraActive] = useState(false);
 
     // ==============================
-    // PEDIR PERMISO DE CÁMARA
+    // PEDIR PERMISO Y MOSTRAR CÁMARA
     // ==============================
     const handleAllow = async () => {
         try {
-            // Pedir permiso a la cámara
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-
-            // Si el permiso fue otorgado, detener el stream y navegar
-            stream.getTracks().forEach(track => track.stop());
-            navigate("/reconocimiento"); // redirige al componente de reconocimiento
+            if (videoRef.current) {
+                videoRef.current.srcObject = stream;
+                setIsCameraActive(true);
+                setErrorMessage(null);
+            }
         } catch (error) {
-            console.error("Permiso de cámara denegado o error:", error);
+            console.error("Error al acceder a la cámara:", error);
             setErrorMessage("No se pudo acceder a la cámara. Por favor, revisa los permisos del navegador.");
         }
     };
 
-    // ==============================
-    // SI EL USUARIO RECHAZA
-    // ==============================
+    const handleContinuar = () => {
+        navigate("/reconocimiento");
+    };
+
     const handleReject = () => {
         if (noAskAgain) {
             localStorage.setItem("skipCameraPermission", "true");
         }
-        navigate("/"); // vuelve a inicio
+        navigate("/");
     };
 
-    // ==============================
-    // SI YA DIJO “NO VOLVER A PREGUNTAR”
-    // ==============================
     React.useEffect(() => {
         const skip = localStorage.getItem("skipCameraPermission");
-        if (skip === "true") {
-            navigate("/"); // omite esta pantalla si el usuario lo indicó antes
-        }
+        if (skip === "true") navigate("/");
     }, [navigate]);
 
     return (
@@ -60,13 +58,29 @@ const CamaraPermiso = () => {
             <h1 className="titulo">PERMISO DE CÁMARA</h1>
 
             <div className="box">
-                <div className="camara">
-                    <img src={miImagen} alt="camara" width={90} height={90}/>
-                </div>
+                {!isCameraActive && (
+                    <div className="camara">
+                        <img src={miImagen} alt="camara" width={90} height={90}/>
+                    </div>
+                )}
+
+                {isCameraActive && (
+                    <video
+                        ref={videoRef}
+                        autoPlay
+                        playsInline
+                        muted
+                        width="320"
+                        height="240"
+                        style={{ borderRadius: "10px", marginTop: "10px" }}
+                    />
+                )}
 
                 <p className="text-camara">
                     Para continuar, necesitamos el acceso a la cámara del dispositivo.<br />
-                    Esto nos permitirá realizar el reconocimiento facial.
+                    {isCameraActive
+                        ? "La cámara está activa. Presiona continuar para ir al reconocimiento facial."
+                        : "Haz clic en PERMITIR para activar la cámara."}
                 </p>
 
                 <div className="checkbox-container">
@@ -81,12 +95,15 @@ const CamaraPermiso = () => {
 
                 <div className="buttons">
                     <button className="reject" onClick={handleReject}>RECHAZAR</button>
-                    <button className="allow" onClick={handleAllow}>PERMITIR</button>
+
+                    {!isCameraActive ? (
+                        <button className="allow" onClick={handleAllow}>PERMITIR</button>
+                    ) : (
+                        <button className="allow" onClick={handleContinuar}>CONTINUAR</button>
+                    )}
                 </div>
 
-                {errorMessage && (
-                    <p className="error-message">{errorMessage}</p>
-                )}
+                {errorMessage && <p className="error-message">{errorMessage}</p>}
             </div>
 
             <footer className="footer">
