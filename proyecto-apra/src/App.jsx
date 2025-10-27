@@ -9,6 +9,7 @@ import FormularioRegistrarse from "./components/FormularioRegistrarse";
 import FormularioIniciarSesion from "./components/FormularioIniciarSesion";
 import Notificaciones from "./components/Notificaciones";
 import PermisoCamara from "./components/PermisoCamara";
+import Reconocimiento from "./components/Reconocimiento";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./components/AuthContext";
 import "./App.css";
@@ -72,6 +73,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <PermisoCamara />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reconocimiento"
+            element={
+              <ProtectedRoute>
+                <Reconocimiento />
               </ProtectedRoute>
             }
           />

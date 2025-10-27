@@ -27,6 +27,8 @@ const CamaraPermiso = () => {
         setStream(userStream);
         setIsCameraReady(true);
         setErrorMessage(null);
+        // Navegar automáticamente al reconocimiento una vez otorgado el permiso
+        setTimeout(() => navigate("/reconocimiento"), 200);
       } catch (error) {
         console.error("Error al acceder a la cámara:", error);
         setErrorMessage(

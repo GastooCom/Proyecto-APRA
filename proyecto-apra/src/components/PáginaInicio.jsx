@@ -58,10 +58,17 @@ const AsistenciaRA = () => {
       </main>
 
       <section className="features-section">
-        <div className="feature-item">
+        <button
+          type="button"
+          className="feature-item"
+          onClick={() => navigate("/permisoscam")}
+          style={{ cursor: 'pointer', background: 'transparent', border: 'none', padding: 0 }}
+          aria-label="Iniciar Realidad Aumentada"
+          title="Iniciar Realidad Aumentada"
+        >
           <i className="material-icons feature-icon"></i>
           <span>Realidad Aumentada</span>
-        </div>
+        </button>
         <div className="feature-item">
           <i className="fas fa-headset feature-icon"></i>
           <span>Soporte Técnico</span>
