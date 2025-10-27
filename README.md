@@ -58,7 +58,7 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 
 ## Vistas/Capturas de la página:
 - **Página Inicio:**
-![alt text]({28F844D9-A994-41FE-A608-641BCAE4B786}.png)
+![alt text](image-6.png)
 - **Tabla de Asistencia:**
 ![alt text]({1DCF9CDC-3BCA-47B4-ADFE-3308ACE39E92}.png)
 - **Permisos de Cámara:**
@@ -69,8 +69,42 @@ El objetivo de la App es brindar a los docentes una herramienta moderna para reg
 ![alt text]({055A23C3-7073-454A-BBA5-EE543529442F}.png)
 - **Registrarse:**
 ![alt text](image.png)
+- **AltaAsistencia:**
+![alt text](image-3.png)
+- **BajaAsistencia:**
+![alt text](image-4.png)
+- **ModificarAsistencia:**
+![alt text](image-5.png)
 ## Capturas de la consola de firebase:
 - **Colección Asistencia:**
 ![alt text](image-1.png)
 - **Coleccion Usuario:**
 ![alt text](image-2.png)
+
+## Instrucciones para clonar y ejecutar localmente
+
+### Requisitos previos
+
+Antes de comenzar, asegurate de tener instalado:
+- [Node.js](https://nodejs.org/) (versión 18 o superior)
+- [Git](https://git-scm.com/)
+
+### Clonar el repositorio
+
+**Abrí la terminal y ejecutá:**
+
+```bash
+git clone https://github.com/tuusuario/Proyecto-APRA.git
+```
+
+**Luego ingresá a la carpeta del proyecto:**
+- cd Proyecto-APRA
+
+**Instalar dependencias**
+- npm install
+
+**Ejecutar el proyecto**
+- npm start
+
+**Esto abrirá la app en tu navegador en:**
+- http://localhost:3000
