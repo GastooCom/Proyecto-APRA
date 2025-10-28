@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import * as faceapi from "face-api.js";
 import { useNavigate } from "react-router-dom";
 import { useRostros } from "../hooks/useRostros";
+import "../css/RegistroRostros.css";
 
 const RegistroRostros = () => {
   const navigate = useNavigate();
@@ -92,24 +93,32 @@ const RegistroRostros = () => {
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <button onClick={() => navigate("/")} style={{ marginBottom: 12 }}>Volver</button>
-      <h2>Registro de Rostros</h2>
-      <div style={{ display: "flex", gap: 20, alignItems: "flex-start" }}>
-        <div style={{ position: "relative" }}>
-          <video ref={videoRef} autoPlay playsInline muted style={{ width: 480, height: 360, background: "#000" }} />
-          <canvas ref={canvasRef} style={{ display: "none" }} />
-          <div style={{ marginTop: 8 }}>
-            <button onClick={capturar} disabled={!modelsLoaded}>Capturar rostro</button>
+    <div className="registro-container">
+      <button className="btn-volver" onClick={() => navigate("/")}>Volver</button>
+      <h2 className="titulo-registro">Registro de Rostros</h2>
+
+      <div className="registro-grid">
+        <div className="cam-box">
+          <div className="cam-frame">
+            <video ref={videoRef} autoPlay playsInline muted className="cam-video" />
+            <canvas ref={canvasRef} className="hidden-canvas" />
           </div>
-          {descriptor && <p>Rostro capturado ✓</p>}
+          <div className="cam-actions">
+            <button className="btn-primario" onClick={capturar} disabled={!modelsLoaded}>
+              {modelsLoaded ? "Capturar rostro" : "Cargando modelos..."}
+            </button>
+            {descriptor && <span className="badge-ok">Rostro capturado ✓</span>}
+          </div>
         </div>
-        <div>
-          <div style={{ display: "grid", gap: 8 }}>
-            <input placeholder="Nombre y Apellido" value={nombre} onChange={e => setNombre(e.target.value)} />
-            <input placeholder="Curso" value={curso} onChange={e => setCurso(e.target.value)} />
-            <input placeholder="División" value={division} onChange={e => setDivision(e.target.value)} />
-            <button onClick={guardar} disabled={saving || !descriptor}>{saving ? "Guardando..." : "Guardar"}</button>
+
+        <div className="form-box">
+          <div className="form-grid">
+            <input className="inp" placeholder="Nombre y Apellido" value={nombre} onChange={e => setNombre(e.target.value)} />
+            <input className="inp" placeholder="Curso" value={curso} onChange={e => setCurso(e.target.value)} />
+            <input className="inp" placeholder="División" value={division} onChange={e => setDivision(e.target.value)} />
+            <button className="btn-guardar" onClick={guardar} disabled={saving || !descriptor}>
+              {saving ? "Guardando..." : "Guardar"}
+            </button>
           </div>
         </div>
       </div>
