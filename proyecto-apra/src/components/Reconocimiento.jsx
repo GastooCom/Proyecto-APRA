@@ -3,6 +3,7 @@ import * as faceapi from "face-api.js";
 import { useNavigate } from "react-router-dom";
 import { FaRegSquare, FaVideo, FaUserAlt } from "react-icons/fa";
 import { BsInfoCircle } from "react-icons/bs";
+import { useAsistencias } from "../hooks/useAsistencias";
 
 function Reconocimiento() {
   const navigate = useNavigate();
@@ -20,6 +21,10 @@ function Reconocimiento() {
   const [frozen, setFrozen] = useState(false);
   const [goodCount, setGoodCount] = useState(0);
   const [badCount, setBadCount] = useState(0);
+  const [adding, setAdding] = useState(false);
+
+  // Hook de asistencias
+  const { agregarAsistencia } = useAsistencias();
 
   // Cargar modelos desde CDN para evitar tener archivos locales
   useEffect(() => {
@@ -185,6 +190,27 @@ function Reconocimiento() {
     setFrozen(true);
   };
 
+  const handleAgregarATabla = async () => {
+    if (facesCount <= 0 || adding) return;
+    setAdding(true);
+    try {
+      const hoy = new Date().toISOString().slice(0, 10);
+      for (let i = 0; i < facesCount; i++) {
+        await agregarAsistencia({
+          curso: "",
+          division: "",
+          nombre: "",
+          fecha: hoy,
+          estado: "",
+        });
+      }
+    } catch (e) {
+      console.error("Error al agregar filas a asistencia:", e);
+    } finally {
+      setAdding(false);
+    }
+  };
+
   const stopAnyLoop = () => {
     if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
   };
@@ -239,6 +265,16 @@ function Reconocimiento() {
 
             {/* Derecha: indicadores */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+              {frozen && facesCount > 0 && (
+                <button
+                  onClick={handleAgregarATabla}
+                  disabled={adding}
+                  title={`Agregar ${facesCount} ${facesCount === 1 ? 'fila' : 'filas'} a la asistencia`}
+                  style={{ background: adding ? '#3a2d58' : 'linear-gradient(135deg, #27ae60, #2ecc71)', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: 12, cursor: adding ? 'not-allowed' : 'pointer', fontWeight: 800, boxShadow: '0 10px 24px rgba(39,174,96,0.35)' }}
+                >
+                  {adding ? 'Agregando...' : `Agregar a la tabla (${facesCount})`}
+                </button>
+              )}
               <div title="No identificables" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#e74c3c', fontWeight: 700 }}>
                 <span style={{ width: 26, height: 26, borderRadius: '50%', background: 'rgba(231,76,60,0.15)', border: '1px solid rgba(231,76,60,0.6)', display: 'grid', placeItems: 'center' }}>
                   <BsInfoCircle />
