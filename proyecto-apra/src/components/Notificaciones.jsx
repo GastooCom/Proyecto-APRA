@@ -5,6 +5,20 @@ import { useNavigate } from 'react-router-dom';
 const Notificaciones = () => {
 
     const navigate = useNavigate();
+    const handleAllow = async () => {
+      try {
+        if (typeof window !== 'undefined' && 'Notification' in window) {
+          const res = await Notification.requestPermission();
+          if (res === 'granted') {
+            try { new Notification('Notificaciones habilitadas'); } catch {}
+          }
+        }
+      } catch {}
+    };
+
+    const handleReject = () => {
+      navigate('/');
+    };
 
   return (
     <div className="contenedor-notificaciones">
@@ -30,8 +44,8 @@ const Notificaciones = () => {
         </div>
 
         <div className="buttons">
-          <button className="reject">RECHAZAR</button>
-          <button className="allow">PERMITIR</button> 
+          <button className="reject" onClick={handleReject}>RECHAZAR</button>
+          <button className="allow" onClick={handleAllow}>PERMITIR</button> 
         </div>
       </div>
       <footer className="footer">
