@@ -179,6 +179,16 @@ const AsistenciaRA = () => {
           <i className="material-icons feature-icon"></i>
           <span>Realidad Aumentada</span>
         </button>
+        <button
+          type="button"
+          className="feature-item"
+          onClick={() => navigate("/registro-rostros")}
+          aria-label="Registro de Rostros"
+          title="Registro de Rostros"
+        >
+          <i className="material-icons feature-icon"></i>
+          <span>Registro de Rostros</span>
+        </button>
         <button type="button" className="feature-item" aria-label="Soporte Técnico" title="Soporte Técnico">
           <i className="fas fa-headset feature-icon"></i>
           <span>Soporte Técnico</span>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaRegSquare, FaVideo, FaUserAlt } from "react-icons/fa";
 import { BsInfoCircle } from "react-icons/bs";
 import { useAsistencias } from "../hooks/useAsistencias";
+import { useRostros } from "../hooks/useRostros";
 
 function Reconocimiento() {
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ function Reconocimiento() {
 
   // Hook de asistencias
   const { agregarAsistencia } = useAsistencias();
+  // Hook de rostros registrados
+  const { rostros } = useRostros();
+  const [detectionsData, setDetectionsData] = useState([]); // guarda {detection, descriptor}
 
   // Cargar modelos desde CDN para evitar tener archivos locales
   useEffect(() => {
@@ -142,9 +146,12 @@ function Reconocimiento() {
     // detectar rostros en la foto capturada
     const detections = await faceapi
       .detectAllFaces(captureCanvas, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: 0.5 }))
-      .withFaceLandmarks();
+      .withFaceLandmarks()
+      .withFaceDescriptors();
 
     setFacesCount(detections.length);
+    // Guardar para matching posterior (descriptor por rostro)
+    setDetectionsData(detections.map(d => ({ detection: d.detection ?? d, descriptor: d.descriptor })));
 
     const resized = faceapi.resizeResults(detections, { width: overlay.width, height: overlay.height });
     const MIN_SIZE = 80; // px mínimos para considerarla "identificable"
@@ -211,6 +218,40 @@ function Reconocimiento() {
     }
   };
 
+  const handleAutocompletar = async () => {
+    if (!frozen || detectionsData.length === 0 || adding) return;
+    const labeled = rostros
+      .filter(r => Array.isArray(r.descriptor) && r.descriptor.length > 0)
+      .map(r => new faceapi.LabeledFaceDescriptors(r.nombre, [new Float32Array(r.descriptor)]));
+    if (labeled.length === 0) {
+      alert("No hay rostros registrados para comparar.");
+      return;
+    }
+    const matcher = new faceapi.FaceMatcher(labeled, 0.45);
+    const hoy = new Date().toISOString().slice(0, 10);
+    setAdding(true);
+    try {
+      for (const d of detectionsData) {
+        if (!d.descriptor) continue;
+        const best = matcher.findBestMatch(d.descriptor);
+        if (best?.label && best.label !== 'unknown') {
+          const reg = rostros.find(r => r.nombre === best.label);
+          await agregarAsistencia({
+            curso: reg?.curso || "",
+            division: reg?.division || "",
+            nombre: reg?.nombre || best.label,
+            fecha: hoy,
+            estado: "",
+          });
+        }
+      }
+    } catch (e) {
+      console.error("Error autocompletando asistencia:", e);
+    } finally {
+      setAdding(false);
+    }
+  };
+
   const stopAnyLoop = () => {
     if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
   };
@@ -263,7 +304,7 @@ function Reconocimiento() {
               <FaVideo size={22} />
             </button>
 
-            {/* Derecha: indicadores */}
+            {/* Derecha: acciones e indicadores */}
             <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
               {frozen && facesCount > 0 && (
                 <button
@@ -273,6 +314,16 @@ function Reconocimiento() {
                   style={{ background: adding ? '#3a2d58' : 'linear-gradient(135deg, #27ae60, #2ecc71)', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: 12, cursor: adding ? 'not-allowed' : 'pointer', fontWeight: 800, boxShadow: '0 10px 24px rgba(39,174,96,0.35)' }}
                 >
                   {adding ? 'Agregando...' : `Agregar a la tabla (${facesCount})`}
+                </button>
+              )}
+              {frozen && facesCount > 0 && (
+                <button
+                  onClick={handleAutocompletar}
+                  disabled={adding}
+                  title="Autocompletar con rostros registrados"
+                  style={{ background: adding ? '#55406e' : 'linear-gradient(135deg, #1f8ef1, #2d9cdb)', color: '#fff', border: 'none', padding: '10px 14px', borderRadius: 12, cursor: adding ? 'not-allowed' : 'pointer', fontWeight: 800, boxShadow: '0 10px 24px rgba(31,142,241,0.35)' }}
+                >
+                  {adding ? 'Procesando...' : 'Autocompletar'}
                 </button>
               )}
               <div title="No identificables" style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#e74c3c', fontWeight: 700 }}>
