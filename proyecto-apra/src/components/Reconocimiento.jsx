@@ -241,7 +241,7 @@ function Reconocimiento() {
             division: reg?.division || "",
             nombre: reg?.nombre || best.label,
             fecha: hoy,
-            estado: "",
+            estado: "Presente",
           });
         }
       }
