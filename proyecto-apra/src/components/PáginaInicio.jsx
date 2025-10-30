@@ -5,6 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 const AsistenciaRA = () => {
   const navigate = useNavigate();
+  // Mostrar la pantalla de permiso de notificaciones automáticamente
+useEffect(() => {
+  const yaPidioPermiso = localStorage.getItem("permisoNotificaciones");
+
+  // Si todavía no se pidió el permiso, redirige al componente Notificaciones
+  if (!yaPidioPermiso) {
+    navigate("/permisosnoti");
+  }
+}, [navigate]);
   const eyesRef = useRef(null);
   const rafRef = useRef(null);
   const targetRef = useRef({ x: 0, y: 0, d: 0 });

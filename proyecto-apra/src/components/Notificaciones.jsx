@@ -10,6 +10,7 @@ const Notificaciones = () => {
         if (typeof window !== 'undefined' && 'Notification' in window) {
           const res = await Notification.requestPermission();
           if (res === 'granted') {
+            localStorage.setItem("permisoNotificaciones", "true");
             try { new Notification('Notificaciones habilitadas'); } catch {}
           }
         }
@@ -17,6 +18,7 @@ const Notificaciones = () => {
     };
 
     const handleReject = () => {
+      localStorage.setItem("permisoNotificaciones", "true");
       navigate('/');
     };
 
