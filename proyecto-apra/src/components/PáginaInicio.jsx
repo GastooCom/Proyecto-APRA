@@ -2,18 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import '../css/PáginaInicio.css';
 import ImagenInicio from "../Imagenes/ImagenInc.png";
 import { useNavigate } from "react-router-dom";
+import SolicitarPermisoNotificaciones from "./SolicitarPermisoNotificaciones";
+
 
 const AsistenciaRA = () => {
   const navigate = useNavigate();
-  // Mostrar la pantalla de permiso de notificaciones automáticamente
-useEffect(() => {
-  const yaPidioPermiso = localStorage.getItem("permisoNotificaciones");
-
-  // Si todavía no se pidió el permiso, redirige al componente Notificaciones
-  if (!yaPidioPermiso) {
-    navigate("/permisosnoti");
-  }
-}, [navigate]);
   const eyesRef = useRef(null);
   const rafRef = useRef(null);
   const targetRef = useRef({ x: 0, y: 0, d: 0 });
@@ -94,6 +87,7 @@ useEffect(() => {
   }, []);
   return (
     <div className="inicio-container">
+      <SolicitarPermisoNotificaciones />
       <header className="inicio-header">
         <div className="header-left">
           <div className="logo-placeholder"></div>
