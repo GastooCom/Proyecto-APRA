@@ -7,7 +7,7 @@ export default function BajaAsistencia() {
   const navigate = useNavigate();
   const { datosAsistencia, borrarAsistencia, loading } = useAsistencias();
 
-  const handleDelete = async (id, nombre) => {
+  const handleDelete = async (id, nombre, fecha) => {
     const confirmar = window.confirm(
       `¿Seguro que deseas eliminar la asistencia de ${nombre}?`
     );
@@ -16,6 +16,16 @@ export default function BajaAsistencia() {
     try {
       await borrarAsistencia(id);
       alert("✅ Asistencia eliminada correctamente");
+      try {
+        if (fecha) {
+          const key = `eliminados:${fecha}`;
+          const arr = JSON.parse(localStorage.getItem(key) || '[]');
+          if (!arr.includes(nombre)) {
+            arr.push(nombre);
+            localStorage.setItem(key, JSON.stringify(arr));
+          }
+        }
+      } catch {}
     } catch (error) {
       console.error("Error al eliminar asistencia:", error);
       alert("❌ Error al eliminar la asistencia");
@@ -85,7 +95,7 @@ export default function BajaAsistencia() {
             <div className="celda">{registro.estado}</div>
             <div className="celda">
               <button
-                onClick={() => handleDelete(registro.id, registro.nombre)}
+                onClick={() => handleDelete(registro.id, registro.nombre, registro.fecha)}
                 style={{
                   background: "red",
                   color: "white",

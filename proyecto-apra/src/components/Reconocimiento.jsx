@@ -23,9 +23,10 @@ function Reconocimiento() {
   const [goodCount, setGoodCount] = useState(0);
   const [badCount, setBadCount] = useState(0);
   const [adding, setAdding] = useState(false);
+  const [permitirRecrear, setPermitirRecrear] = useState(false);
 
   // Hook de asistencias
-  const { agregarAsistencia } = useAsistencias();
+  const { datosAsistencia, agregarAsistencia, actualizarAsistencia } = useAsistencias();
   // Hook de rostros registrados
   const { rostros } = useRostros();
   const [detectionsData, setDetectionsData] = useState([]); // guarda {detection, descriptor}
@@ -231,18 +232,42 @@ function Reconocimiento() {
     const hoy = new Date().toISOString().slice(0, 10);
     setAdding(true);
     try {
+      const reconocidos = new Set();
+      const eliminadosHoy = (() => {
+        try { return JSON.parse(localStorage.getItem(`eliminados:${hoy}`) || '[]'); } catch { return []; }
+      })();
       for (const d of detectionsData) {
         if (!d.descriptor) continue;
         const best = matcher.findBestMatch(d.descriptor);
         if (best?.label && best.label !== 'unknown') {
-          const reg = rostros.find(r => r.nombre === best.label);
-          await agregarAsistencia({
-            curso: reg?.curso || "",
-            division: reg?.division || "",
-            nombre: reg?.nombre || best.label,
-            fecha: hoy,
-            estado: "Presente",
-          });
+          const nombreTarget = best.label;
+          reconocidos.add(nombreTarget);
+          const existente = (datosAsistencia || []).find(a => a?.nombre === nombreTarget && a?.fecha === hoy);
+          if (existente) {
+            await actualizarAsistencia(existente.id, { estado: 'Presente' });
+          } else {
+            // Crear SOLO si no fue eliminado manualmente hoy, o si el usuario habilita recreación
+            if (!eliminadosHoy.includes(nombreTarget) || permitirRecrear) {
+              const reg = rostros.find(r => r.nombre === nombreTarget);
+              await agregarAsistencia({
+                curso: reg?.curso || "",
+                division: reg?.division || "",
+                nombre: reg?.nombre || nombreTarget,
+                fecha: hoy,
+                estado: 'Presente',
+              });
+            }
+          }
+        }
+      }
+      // Marcar como Ausente a los rostros registrados no reconocidos en esta captura (solo actualizar existentes)
+      for (const r of rostros) {
+        const nombre = r?.nombre;
+        if (!nombre) continue;
+        if (reconocidos.has(nombre)) continue;
+        const existente = (datosAsistencia || []).find(a => a?.nombre === nombre && a?.fecha === hoy);
+        if (existente) {
+          await actualizarAsistencia(existente.id, { estado: 'Ausente' });
         }
       }
     } catch (e) {
