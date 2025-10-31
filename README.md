@@ -108,3 +108,43 @@ git clone https://github.com/tuusuario/Proyecto-APRA.git
 
 **Esto abrirá la app en tu navegador en:**
 - http://localhost:3000
+
+**Abrí la terminal y ejecutá:**
+
+## Instrucciones de Deploy
+
+### Clonar el repositorio
+```bash
+git clone https://github.com/usuario/Proyecto-APRA.git
+cd Proyecto-APRA
+```
+### Instalar dependencias
+```bash
+npm install
+```
+### Iniciar el entorno de desarrollo
+```bash
+npm run dev
+```
+### Compilar para produccción
+```bash
+npm run build
+```
+### Deploy:
+- Subí la carpeta generada en /dist a tu hosting preferido (por ejemplo, Vercel, Netlify o Firebase Hosting).
+- En caso de usar Vercel, simplemente importá el repositorio desde tu cuenta y el deploy será automático.
+
+## Créditos del grupo
+- Proyecto desarrollado por los siguientes integrantes:
+- Gastón Frigo
+- Facundo Carrasco
+- Joaquín Lema
+- Mateo Acuña
+- Aquiles Font
+
+*Institución:*
+- E.P.E.T N°20
+*Año:* 
+- 2025
+*Materia:* 
+- Programación Web Dinámica
