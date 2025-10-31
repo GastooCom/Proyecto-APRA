@@ -13,6 +13,7 @@ export default function ModificarAsistencia() {
     nombre: "",
     fecha: "",
     estado: "",
+    gmailPadres: "",
   });
 
   const handleSelect = (asistencia) => {
@@ -23,6 +24,7 @@ export default function ModificarAsistencia() {
       nombre: asistencia.nombre,
       fecha: asistencia.fecha,
       estado: asistencia.estado,
+      gmailPadres: asistencia.gmailPadres || "",
     });
   };
 
@@ -160,6 +162,17 @@ export default function ModificarAsistencia() {
               <option value="Ausente">Ausente</option>
               <option value="Tarde">Tarde</option>
             </select>
+          </div>
+
+          <div className="campo">
+            <label>Gmail de los Padres:</label>
+            <input
+              type="email"
+              name="gmailPadres"
+              value={formData.gmailPadres}
+              onChange={handleChange}
+              placeholder="ejemplo@correo.com"
+            />
           </div>
 
           <button type="submit" className="boton-guardar">
