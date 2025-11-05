@@ -13,6 +13,8 @@ import Reconocimiento from "./components/Reconocimiento";
 import RegistroRostros from "./components/RegistroRostros";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./components/AuthContext";
+import SoporteTecnico from "./components/SoporteTecnico";
+import MasInformacion from "./components/MasInformacion";
 import "./App.css";
 
 /*GASTON DEJAME IIIIRRRRR*/
@@ -23,12 +25,13 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          {/* 🌐 Rutas públicas */}
+          {/* Rutas públicas */}
           <Route path="/" element={<PáginaInicio />} />
           <Route path="/registrarse" element={<FormularioRegistrarse />} />
           <Route path="/iniciar-sesion" element={<FormularioIniciarSesion />} />
+          <Route path="/mas-informacion" element={<MasInformacion />} />
 
-          {/* 🔒 Rutas protegidas */}
+          {/* Rutas protegidas */}
           <Route
             path="/asistencia"
             element={
@@ -90,6 +93,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <RegistroRostros />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/soporte-tecnico"
+            element={
+              <ProtectedRoute>
+                <SoporteTecnico />
               </ProtectedRoute>
             }
           />

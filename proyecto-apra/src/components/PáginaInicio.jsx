@@ -121,7 +121,7 @@ const AsistenciaRA = () => {
         <i className="fab fa-youtube icon"></i>
       </div>
 
-      <main className="hero-section">
+      <main className="hero-section home-hero">
         <div className="hero-text">
           <h1 className="hero-title">
             Asistencia<br /> Realidad <br /> Aumentada
@@ -129,7 +129,7 @@ const AsistenciaRA = () => {
           <p>
             Proporcionamos asistencia experta remota mediante la realidad aumentada para técnicos en campo
           </p>
-          <button className="info-button">Mas información</button>
+          <button className="info-button" onClick={() => navigate("/mas-informacion")}>Mas información</button>
         </div>
         <div className="hero-image">
           <div className="eyes-anim" aria-hidden="true" ref={eyesRef}>
@@ -171,7 +171,7 @@ const AsistenciaRA = () => {
         </div>
       </main>
 
-      <section className="features-section">
+      <section className="features-section home-features">
         <button
           type="button"
           className="feature-item"
@@ -192,11 +192,17 @@ const AsistenciaRA = () => {
           <i className="material-icons feature-icon"></i>
           <span>Registro de Rostros</span>
         </button>
-        <button type="button" className="feature-item" aria-label="Soporte Técnico" title="Soporte Técnico">
+        <button
+          type="button"
+          className="feature-item"
+          aria-label="Soporte Técnico"
+          title="Soporte Técnico"
+          onClick={() => navigate("/soporte-tecnico")}
+        >
           <i className="fas fa-headset feature-icon"></i>
           <span>Soporte Técnico</span>
         </button>
-        <button type="button" className="feature-item" aria-label="Comunicación" title="Comunicación">
+        <button type="button" className="feature-item comm-item" aria-label="Comunicación" title="Comunicación">
           <i className="fas fa-comments feature-icon"></i>
           <span>Comunicación</span>
         </button>
