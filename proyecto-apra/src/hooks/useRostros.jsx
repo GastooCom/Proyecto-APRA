@@ -16,11 +16,14 @@ export function useRostros() {
     return () => unsub();
   }, []);
 
-  const guardarRostro = async ({ nombre, curso, division, descriptor }) => {
+  const guardarRostro = async ({ nombre, curso, division, gmailPadres, fecha, estado, descriptor }) => {
     await addDoc(collection(db, "rostros"), {
       nombre,
       curso,
       division,
+      gmailPadres: gmailPadres || "",
+      fecha: fecha || "",
+      estado: estado || "",
       descriptor: Array.from(descriptor || []),
     });
   };

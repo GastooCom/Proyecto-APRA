@@ -11,8 +11,11 @@ const RegistroRostros = () => {
   const [modelsLoaded, setModelsLoaded] = useState(false);
   const [stream, setStream] = useState(null);
   const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [curso, setCurso] = useState("");
   const [division, setDivision] = useState("");
+  
+  const [gmailPadres, setGmailPadres] = useState("");
   const [descriptor, setDescriptor] = useState(null);
   const [saving, setSaving] = useState(false);
   const { guardarRostro } = useRostros();
@@ -68,8 +71,8 @@ const RegistroRostros = () => {
   };
 
   const guardar = async () => {
-    if (!descriptor || !nombre) {
-      alert("Completá al menos el nombre y capturá un rostro.");
+    if (!descriptor || !nombre || !apellido || !curso || !division) {
+      alert("Completá todos los campos y capturá un rostro.");
       return;
     }
     if (descriptor && descriptor.length && descriptor.length !== 128) {
@@ -77,10 +80,13 @@ const RegistroRostros = () => {
     }
     setSaving(true);
     try {
-      await guardarRostro({ nombre, curso, division, descriptor });
+      const nombreCompleto = `${nombre} ${apellido}`.trim();
+      await guardarRostro({ nombre: nombreCompleto, curso, division, gmailPadres, descriptor });
       setNombre("");
+      setApellido("");
       setCurso("");
       setDivision("");
+      setGmailPadres("");
       setDescriptor(null);
       alert("Rostro guardado correctamente");
     } catch (e) {
@@ -112,10 +118,22 @@ const RegistroRostros = () => {
         </div>
 
         <div className="form-box">
-          <div className="form-grid">
-            <input className="inp" placeholder="Nombre y Apellido" value={nombre} onChange={e => setNombre(e.target.value)} />
-            <input className="inp" placeholder="Curso" value={curso} onChange={e => setCurso(e.target.value)} />
-            <input className="inp" placeholder="División" value={division} onChange={e => setDivision(e.target.value)} />
+          <div style={{ maxHeight: '65vh', overflowY: 'auto', paddingRight: 8 }}>
+            <div style={{ border: '1px solid #e5e5e5', borderRadius: 12, padding: 12, marginBottom: 14 }}>
+              <div style={{ fontWeight: 800, marginBottom: 8 }}>Datos del alumno</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+                <input className="inp" placeholder="Curso" value={curso} onChange={e => setCurso(e.target.value)} />
+                <input className="inp" placeholder="División" value={division} onChange={e => setDivision(e.target.value)} />
+                <input className="inp" placeholder="Nombre" value={nombre} onChange={e => setNombre(e.target.value)} />
+                <input className="inp" placeholder="Apellido" value={apellido} onChange={e => setApellido(e.target.value)} />
+              </div>
+            </div>
+
+            <div style={{ border: '1px solid #e5e5e5', borderRadius: 12, padding: 12, marginBottom: 14 }}>
+              <div style={{ fontWeight: 800, marginBottom: 8 }}>Contacto</div>
+              <input className="inp" type="email" placeholder="Correo de los Padres" value={gmailPadres} onChange={e => setGmailPadres(e.target.value)} />
+            </div>
+
             <button className="btn-guardar" onClick={guardar} disabled={saving || !descriptor}>
               {saving ? "Guardando..." : "Guardar"}
             </button>
