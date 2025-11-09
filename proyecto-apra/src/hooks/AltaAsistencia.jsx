@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useAsistencias } from "../hooks/useAsistencias";
 import "../css/Asistencia.css";
 
 export default function AltaAsistencia() {
   const navigate = useNavigate();
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const fechaParam = params.get("fecha") || "";
   const { agregarAsistencia } = useAsistencias();
 
   const [nuevo, setNuevo] = useState({
     curso: "",
     division: "",
     nombre: "",
-    fecha: "",
+    apellido: "",
+    fecha: fechaParam,
     estado: "Presente",
+    gmailPadres: "",
   });
 
   const handleChange = (campo, valor) => {
@@ -23,13 +29,22 @@ export default function AltaAsistencia() {
     e.preventDefault();
 
     // Validaciones simples
-    if (!nuevo.curso || !nuevo.division || !nuevo.nombre || !nuevo.fecha) {
+    if (!nuevo.curso || !nuevo.division || !nuevo.nombre || !nuevo.apellido || !nuevo.fecha) {
       alert("Por favor completa todos los campos.");
       return;
     }
 
     try {
-      await agregarAsistencia(nuevo);
+      // Mantener compatibilidad: guardar 'nombre' como Nombre + Apellido
+      const payload = {
+        curso: nuevo.curso,
+        division: nuevo.division,
+        nombre: `${nuevo.nombre} ${nuevo.apellido}`.trim(),
+        fecha: nuevo.fecha,
+        estado: nuevo.estado,
+        gmailPadres: nuevo.gmailPadres || "",
+      };
+      await agregarAsistencia(payload);
       alert("✅ Asistencia registrada correctamente");
 
       // limpiar formulario
@@ -37,8 +52,10 @@ export default function AltaAsistencia() {
         curso: "",
         division: "",
         nombre: "",
+        apellido: "",
         fecha: "",
         estado: "Presente",
+        gmailPadres: "",
       });
 
       // volver o quedarse
@@ -70,45 +87,70 @@ export default function AltaAsistencia() {
 
       <h1 className="titulo-asistencia">Registrar Nueva Asistencia</h1>
 
+      <div style={{ maxHeight: '65vh', overflowY: 'auto', paddingRight: 8 }}>
       <form onSubmit={handleSubmit} className="form-nueva-asistencia">
-        <input
-          type="text"
-          placeholder="Curso"
-          value={nuevo.curso}
-          onChange={(e) => handleChange("curso", e.target.value)}
-        />
+        <div style={{ border: '1px solid #e5e5e5', borderRadius: 12, padding: 12, marginBottom: 14 }}>
+          <div style={{ fontWeight: 800, marginBottom: 8 }}>Datos del alumno</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+            <input
+              type="text"
+              placeholder="Curso"
+              value={nuevo.curso}
+              onChange={(e) => handleChange("curso", e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="División"
+              value={nuevo.division}
+              onChange={(e) => handleChange("division", e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Nombre"
+              value={nuevo.nombre}
+              onChange={(e) => handleChange("nombre", e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="Apellido"
+              value={nuevo.apellido}
+              onChange={(e) => handleChange("apellido", e.target.value)}
+            />
+          </div>
+        </div>
 
-        <input
-          type="text"
-          placeholder="División"
-          value={nuevo.division}
-          onChange={(e) => handleChange("division", e.target.value)}
-        />
+        <div style={{ border: '1px solid #e5e5e5', borderRadius: 12, padding: 12, marginBottom: 14 }}>
+          <div style={{ fontWeight: 800, marginBottom: 8 }}>Fecha y estado</div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+            <input
+              type="date"
+              value={nuevo.fecha}
+              onChange={(e) => handleChange("fecha", e.target.value)}
+            />
+            <select
+              value={nuevo.estado}
+              onChange={(e) => handleChange("estado", e.target.value)}
+            >
+              <option value="Presente">Presente</option>
+              <option value="Ausente">Ausente</option>
+              <option value="Tarde">Tarde</option>
+            </select>
+          </div>
+        </div>
 
-        <input
-          type="text"
-          placeholder="Nombre y Apellido"
-          value={nuevo.nombre}
-          onChange={(e) => handleChange("nombre", e.target.value)}
-        />
-
-        <input
-          type="date"
-          value={nuevo.fecha}
-          onChange={(e) => handleChange("fecha", e.target.value)}
-        />
-
-        <select
-          value={nuevo.estado}
-          onChange={(e) => handleChange("estado", e.target.value)}
-        >
-          <option value="Presente">Presente</option>
-          <option value="Ausente">Ausente</option>
-          <option value="Tarde">Tarde</option>
-        </select>
+        <div style={{ border: '1px solid #e5e5e5', borderRadius: 12, padding: 12, marginBottom: 14 }}>
+          <div style={{ fontWeight: 800, marginBottom: 8 }}>Contacto</div>
+          <input
+            type="email"
+            placeholder="Correo de los Padres"
+            value={nuevo.gmailPadres}
+            onChange={(e) => handleChange("gmailPadres", e.target.value)}
+          />
+        </div>
 
         <button type="submit">Guardar Asistencia</button>
       </form>
+      </div>
     </div>
   );
 }
